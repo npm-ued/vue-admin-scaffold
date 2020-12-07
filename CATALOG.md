@@ -1,0 +1,40 @@
+### 目录结构
+- src 源码
+  - assets 静态文件 
+    - css 样式文件
+    - image 图片文件
+    - js js 文件
+  - components 组件
+    - custom-card 自定义card
+    - custom-form 自定义form
+    - custom-list 自定义list
+    - layout 布局
+    - index.ts 公共组件导出
+  - i18n 国际化
+    - en-US 美式英文
+    - zh-CN 简体中文
+    - index.ts 国际化导出文件
+  - plugins 插件
+    - elements.ts element plus 插件
+    - global-components.ts 全局自定义组件插件
+  - router 路由
+    - modules 模块
+    - index.ts 路由导出
+  - store 全局store
+    - index.ts 
+  - views 页面
+    - login 登录页面
+    - user 用户页面
+- .browserslistrc 
+- .eslintignore eslint的忽略文件
+- .eslintrc.js eslint 的配置文件
+- .gitignore git忽略文件
+- babel.config.js babel的配置文件
+- CATALOG.md 目录结构文档
+- jest.config.js jest测试配置文件
+- package-lock.json 包版本锁定文件
+- package.json 项目配置文件
+- README.md 项目文档
+- todo-list.md todolist
+- tsconfig.json typescript 配置文件
+- vue.config.js vue-cli的相关配置文件

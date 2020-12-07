@@ -1,10 +1,10 @@
-import Main from '@/main.vue';
+import HomePage from '@/views/main/main.vue';
 
 export default [
   {
     path: '/user',
     name: 'user',
-    component: Main,
+    component: HomePage,
     sort: 0,
     meta: {
       title: 'UserManager',

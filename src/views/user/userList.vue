@@ -9,7 +9,6 @@
 import { ref, onMounted } from 'vue';
 export default {
   name: 'userList',
-
   setup() {
     const age = ref(18);
     const increate = function () {

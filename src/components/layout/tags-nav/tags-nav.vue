@@ -1,12 +1,11 @@
 <template>
   <div>
-    <h1>userInfo</h1>
-    <customCard />
+    <h1>tags nav</h1>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 export default defineComponent({
-  name: 'userInfo'
+  name: 'tagsNav'
 });
 </script>
