@@ -15,7 +15,7 @@ export default {
       age.value++;
     };
     onMounted(() => {
-      console.log('onMounted');
+      // console.log('onMounted');
     });
     return { increate, age };
   }

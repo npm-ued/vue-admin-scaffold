@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import routers from './router/modules';
 import App from './App.vue';
 import router from './router';
 

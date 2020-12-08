@@ -1,26 +1,12 @@
 <template>
-  <el-container>
-    <el-aside width="256px">
-      <asideMenu :menuList="menuList">
-        <template #logo>
-          <div class="logo-con">logo</div>
-        </template>
-      </asideMenu>
-    </el-aside>
-    <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header>
+  <el-container direction="horizontal">
+    <asideMenu :collapsed="collapsed">
+      <template #logo>
+        <div class="logo-con">Vue3.0 Admin</div>
+      </template>
+    </asideMenu>
+    <el-container direction="vertical">
+      <headerBar @on-change="handleCollapsedChange" />
       <el-main>
         <div class="content-wrapper">
           <router-view />
@@ -38,9 +24,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AsideMenu from '../../components/layout/aside-menu';
+import HeaderBar from '../../components/layout/header-bar';
 
 export default defineComponent({
-  name: 'main',
+  name: 'home',
   data() {
     const item = {
       date: '2016-05-02',
@@ -49,15 +36,14 @@ export default defineComponent({
     };
     return {
       tableData: Array(20).fill(item),
-      isShowBg: true
+      isShowBg: true,
+      collapsed: false
     };
   },
   methods: {
-    turnPage(name) {
-      this.$router.push({ name });
-    },
-    gotoContent(e) {
-      e.preventDefault();
+    // 左侧展开/收缩
+    handleCollapsedChange(state: boolean) {
+      this.collapsed = state;
     }
   },
   watch: {
@@ -67,13 +53,11 @@ export default defineComponent({
     }
   },
   mounted() {
-    console.log('mounted');
     this.isShowBg = this.$route.name === 'home';
-    console.log(this.isShowBg);
-    // console.log(routers);
   },
   components: {
-    AsideMenu
+    AsideMenu,
+    HeaderBar
   }
 });
 </script>
@@ -84,6 +68,7 @@ export default defineComponent({
 }
 .content-wrapper {
   background-color: #ffffff;
+  padding: 10px;
 }
 
 .el-header {

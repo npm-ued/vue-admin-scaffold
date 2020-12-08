@@ -2,3 +2,35 @@
   padding: 0;
   margin: 0;
 }
+
+/* 左侧导航开始 */
+.el-menu {
+  border-right: none;
+}
+/* .el-submenu {
+  user-select: none;
+}
+.el-submenu__title i,.el-menu-item i{
+  color: inherit;
+}
+
+.is-opened .el-submenu__title {
+  background-color: #515a6e !important; 
+}
+
+.el-submenu .el-menu-item:hover,.el-submenu .el-submenu__title:hover, .el-menu-item:hover{
+  color: #ffffff !important;
+  background-color: #191a23 !important;
+}
+
+.el-submenu .el-menu-item.is-active,.el-submenu .el-menu-item.is-active:hover, .el-menu-item.is-active {
+  background-color: #2d8cf0 !important;
+  color: #ffffff;
+} */
+/* 左侧导航结束 */
+
+/* 内容区开始 */
+.el-main {
+  padding: 10px !important;
+}
+/* 内容区结束 */

@@ -1,5 +1,4 @@
-import HomePage from '@/views/main/main.vue';
-
+import HomePage from '@/views/home/home.vue';
 export default [
   {
     path: '/',
