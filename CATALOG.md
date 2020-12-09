@@ -9,6 +9,8 @@
     - custom-form 自定义form
     - custom-list 自定义list
     - layout 布局
+      - aside-menu 左侧导航
+      - header-bar 页面面包屑等
     - index.ts 公共组件导出
   - i18n 国际化
     - en-US 美式英文
@@ -25,6 +27,10 @@
   - views 页面
     - login 登录页面
     - user 用户页面
+  - App.vue 入口页面
+  - devtools.ts dev tool 调试
+  - main.ts 入口文件
+  - shims-vue.d.ts 全局声明文件
 - .browserslistrc 
 - .eslintignore eslint的忽略文件
 - .eslintrc.js eslint 的配置文件

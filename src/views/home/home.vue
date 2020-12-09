@@ -2,7 +2,8 @@
   <el-container direction="horizontal">
     <asideMenu :collapsed="collapsed">
       <template #logo>
-        <div class="logo-con">Vue3.0 Admin</div>
+        <div class="big-logo" v-if="!collapsed">Vue3.0 Admin</div>
+        <img v-else :src="minLogo" key="min-logo" class="logo-mini" />
       </template>
     </asideMenu>
     <el-container direction="vertical">
@@ -29,19 +30,20 @@ import HeaderBar from '../../components/layout/header-bar';
 export default defineComponent({
   name: 'home',
   data() {
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    };
     return {
-      tableData: Array(20).fill(item),
       isShowBg: true,
-      collapsed: false
+      collapsed: false, // 是否缩略模式
+      minLogo: require('../../assets/image/index_title.png'), // 小lOGO
+      maxLogo: require('../../assets/image/index_title.png') // 大 logo
     };
   },
   methods: {
-    // 左侧展开/收缩
+    turnPage(name: string) {
+      this.$router.push({ name });
+    },
+    gotoContent(e: Event) {
+      e.preventDefault();
+    },
     handleCollapsedChange(state: boolean) {
       this.collapsed = state;
     }
@@ -71,18 +73,18 @@ export default defineComponent({
   padding: 10px;
 }
 
-.el-header {
-  background-color: #ffffff;
-  color: #333;
-  line-height: 64px;
-  height: 64px;
-}
-
 .el-aside {
   color: #333;
 }
 .bgWelcome {
   max-width: 600px;
   margin: 100px auto;
+}
+.logo-mini {
+  width: 24px;
+  height: 24px;
+  margin: 10px auto;
+  display: block;
+  overflow: hidden;
 }
 </style>

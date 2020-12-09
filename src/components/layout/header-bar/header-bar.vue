@@ -4,17 +4,15 @@
       <i class="el-icon-s-fold collapseIcon" :size="40" />
     </a>
     <div class="custom-bread-crumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-      </el-breadcrumb>
+      <breadcrumbList separator="/" :breadList="list" />
     </div>
   </el-header>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import BreadcrumbList from './breadcrumbList.vue';
+import { defineComponent, ref, watch } from 'vue';
+import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router';
+import getBreadcrumbList from './composables/getBreadcrumbList';
 export default defineComponent({
   name: 'headerBar',
   data() {
@@ -27,8 +25,27 @@ export default defineComponent({
       this.$emit('on-change', this.collapsed);
     }
   },
-  setup(props) {
-    return {};
+  setup(props, context) {
+    // 监听路由发生变化，显示面包屑
+    const route: RouteLocationNormalizedLoaded = useRoute();
+    const list = ref(getBreadcrumbList(route));
+    // TODO runtime-core.esm-bundler.js?5c40:38 [Vue warn]: Avoid app logic that relies on enumerating keys on a component instance. The keys will be empty in production mode to avoid performance overhead
+    watch(
+      () => route,
+      () => {
+        // 回调函数
+        list.value = getBreadcrumbList(route);
+        console.log(list.value);
+      },
+      {
+        immediate: true,
+        deep: true
+      }
+    );
+    return { list };
+  },
+  components: {
+    BreadcrumbList
   }
 });
 </script>
@@ -45,5 +62,14 @@ export default defineComponent({
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
+}
+.el-header {
+  background-color: #ffffff;
+  color: #333;
+  line-height: 60px;
+  height: 60px;
+}
+.custom-bread-crumb .el-breadcrumb {
+  line-height: inherit;
 }
 </style>

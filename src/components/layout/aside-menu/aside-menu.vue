@@ -1,5 +1,5 @@
 <template>
-  <el-aside :width="collapsed ? '256px' : '256px'">
+  <el-aside :width="collapsed ? '64px' : '256px'">
     <div class="aside-menu-wrapper">
       <!-- logo开始 -->
       <div
@@ -15,7 +15,7 @@
         :text-color="asideMenu.textColor"
         :active-text-color="asideMenu.activeTextColor"
         :collapse="collapsed"
-        class="horizontal-collapse-transition"
+        class="el-menu-vertical-demo"
       >
         <template v-for="(item, index) in menuList">
           <el-submenu
@@ -60,43 +60,6 @@
       </el-menu>
       <!-- 导航结束 -->
     </div>
-    <!-- <el-menu
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      :collapse="collapsed"
-    >
-      <el-submenu index="1">
-        <template #title>
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template #title>选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <template #title>导航二</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <template #title>导航三</template>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-    </el-menu> -->
   </el-aside>
 </template>
 <script lang="ts">
@@ -131,11 +94,6 @@ export default defineComponent({
       default: () => []
     }
   },
-  data() {
-    return {
-      isCollapse: false
-    };
-  },
   methods: {
     turnPage(name: string) {
       this.$router.push({ name });
@@ -154,8 +112,13 @@ export default defineComponent({
 .logoWrapper {
   color: #ffffff;
   font-size: 24px;
-  height: 64px;
-  line-height: 64px;
-  padding-left: 30px;
+  height: 48px;
+  padding: 12px 10px 0px 10px;
+  text-align: center;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 256px;
+}
+.wrapper {
 }
 </style>

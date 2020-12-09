@@ -4,10 +4,13 @@
 }
 
 /* 左侧导航开始 */
+.el-aside {
+  background-color: #191a23;
+}
 .el-menu {
   border-right: none;
 }
-/* .el-submenu {
+.el-submenu {
   user-select: none;
 }
 .el-submenu__title i,.el-menu-item i{
@@ -26,7 +29,7 @@
 .el-submenu .el-menu-item.is-active,.el-submenu .el-menu-item.is-active:hover, .el-menu-item.is-active {
   background-color: #2d8cf0 !important;
   color: #ffffff;
-} */
+}
 /* 左侧导航结束 */
 
 /* 内容区开始 */
