@@ -1,0 +1,49 @@
+{
+  "code": 0,
+  "data": {
+    "endRow": 0,
+    "firstPage": 0,
+    "hasNextPage": true,
+    "hasPreviousPage": true,
+    "isFirstPage": true,
+    "isLastPage": true,
+    "lastPage": 0,
+    "list|10": [
+      {
+        "amount|2000-5000": 0,
+        "capital|1-100.2": 1,
+        "firstName": "@first",
+        "interest|1-100.2": 0,
+        "interestPenalty|1-100.2": 0,
+        "lastName": "@first",
+        "loanTime": "2020-05-07T03:00:09.898Z",
+        "middleName": "@first",
+        "mobile|18800000000-18899999999": 0,
+        "repayAmount|1-100.2": 0,
+        "repayCapital|1-100.2": 0,
+        "repayInterest|1-100.2": 0,
+        "repayTime": "2020-05-07T03:00:09.898Z",
+        "serviceCharge|1-100.2": 0,
+        "status|1": ["REPAYING", "SETTLED"],
+        "surplusAmount|1-100.2": 0,
+        "surplusCapital|1-100.2": 0,
+        "surplusInterest|1-100.2": 0
+      }
+    ],
+    "navigateFirstPage": 0,
+    "navigateLastPage": 0,
+    "navigatePages": 0,
+    "navigatepageNums": [
+      0
+    ],
+    "nextPage": 0,
+    "pageNum": 1,
+    "pageSize": 10,
+    "pages": 0,
+    "prePage": 0,
+    "size": 0,
+    "startRow": 0,
+    "total|35-60": 100
+  },
+  "msg": "string"
+}

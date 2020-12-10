@@ -47,6 +47,7 @@
     "vue-cli-plugin-element-plus": "0.0.8",
     "vue-jest": "^5.0.0-0",
     "wdio-chromedriver-service": "^6.0.3",
-    "wdio-geckodriver-service": "^1.1.0"
+    "wdio-geckodriver-service": "^1.1.0",
+    "mockjs": "^1.1.0"
   }
 }

@@ -28,7 +28,7 @@ export default [
         path: 'userInfo',
         name: 'userInfo',
         meta: { title: 'UserList', icon: 'md-list' },
-        component: () => import('@/views/user/userInfo.vue')
+        component: () => import('@/views/user/userInfo/userInfo.vue')
       }
     ]
   },

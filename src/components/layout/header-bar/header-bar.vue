@@ -35,7 +35,6 @@ export default defineComponent({
       () => {
         // 回调函数
         list.value = getBreadcrumbList(route);
-        console.log(list.value);
       },
       {
         immediate: true,

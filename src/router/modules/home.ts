@@ -7,7 +7,7 @@ export default [
     sort: 0,
     meta: {
       title: 'HomePage',
-      icon: 'md-home',
+      icon: 'el-icon-s-home',
       hideInMenu: true,
       hideInBread: true
     }

@@ -39,13 +39,21 @@ function getBreadcrumbList(
   curentRoute: RouteLocationNormalizedLoaded
 ): Breadcrumb[] {
   let list: Breadcrumb[] = [];
+  // 获取首页的面包屑选项
+  const homeItem: Breadcrumb = getHomeRoute(routeList, 'home');
+  // 当前路由的匹配
   const { matched } = curentRoute;
+  // console.log(matched.some((item) => item.name === homeItem.name));
+  // 如果是首页路径，则直接返回
+  if (matched.some((item) => item.name === homeItem.name)) {
+    return [homeItem];
+  }
   list = matched.map((item) => {
     const { name, path, meta } = item;
     const nameStr = name as string; // 类型强转
-    return { name: nameStr, icon: meta?.icon };
+    return { name: nameStr };
   });
-  list.unshift(getHomeRoute(routeList, 'home'));
+  list.unshift(homeItem);
   return list;
 }
 

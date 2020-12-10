@@ -10,7 +10,10 @@
     - custom-list 自定义list
     - layout 布局
       - aside-menu 左侧导航
-      - header-bar 页面面包屑等
+      - header-bar 页面头部
+        - breadcrumbList.vue 面包屑导航
+        - header-bar.ts 头部相关类型声明
+        - header-bar.vue 页面头部
     - index.ts 公共组件导出
   - i18n 国际化
     - en-US 美式英文

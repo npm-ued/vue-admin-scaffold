@@ -1,0 +1,18 @@
+{
+  "code": 0,
+  "data|5-30":[
+    {
+      "nid": "@id()",
+      "permissionList|10-20": [
+        {
+          "nid": "@id()",
+          "permissionCode": "@word()_@word()",
+          "permissionName": "@name()"
+        }
+      ],
+      "roleCode": "@string()",
+      "roleName": "@word()"
+    }
+  ],
+  "msg": "@string()"
+}
