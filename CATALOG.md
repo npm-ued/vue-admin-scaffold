@@ -1,5 +1,6 @@
 ### 目录结构
 - src 源码
+  - api 模块化API
   - assets 静态文件 
     - css 样式文件
     - image 图片文件
@@ -22,6 +23,9 @@
   - plugins 插件
     - elements.ts element plus 插件
     - global-components.ts 全局自定义组件插件
+  - request 网络请求封装
+    - getrequest.ts api模块化封装
+    - server.ts axios拦截器相关封装
   - router 路由
     - modules 模块
     - index.ts 路由导出
