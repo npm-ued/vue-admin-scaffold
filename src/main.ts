@@ -7,6 +7,7 @@ import { devtools } from './devtools';
 import store from './store';
 import installElementPlus from './plugins/element';
 import installGlobalComponents from './plugins/global-components';
+import i18n from './i18n';
 import './assets/css/reset.css';
 
 const app = createApp(App).use(devtools).use(store).use(router);
