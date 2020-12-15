@@ -16,45 +16,48 @@
         :active-text-color="asideMenu.activeTextColor"
         :collapse="collapsed"
         class="el-menu-vertical-demo"
+        :default-active="menuActive.activeName"
+        :default-openeds="menuActive.openNames"
       >
         <template v-for="(item, index) in menuList">
           <el-submenu
-            :index="`${index}`"
+            :index="`${item.name}`"
             :key="index"
             v-if="item.children && item.children.length > 0"
           >
             <template #title>
-              <i :class="item.icon"></i><span>{{ item.name }}</span>
+              <i :class="item.icon" />
+              <span>{{ $t(item.meta.title || '') }}</span>
             </template>
             <template
               v-for="(subItem, subIndex) in item.children"
-              :index="`${index}-${subIndex}`"
+              :index="`${subItem.name}`"
               :key="subIndex"
             >
               <el-submenu
                 v-if="subItem.children && subItem.children.length > 0"
               >
-                <template #title>{{ subItem.name }}</template>
+                <template #title>{{ $t(subItem.mate.title || '') }}</template>
                 <el-menu-item
                   v-for="(lastItem, lastIndex) in subItem.children"
-                  :index="`${index}-${subIndex}-${lastIndex}`"
+                  :index="`${lastItem.name}`"
                   :key="lastIndex"
                 >
-                  {{ lastItem.name }}
+                  {{ $t(lastItem.meta.title) }}
                 </el-menu-item>
               </el-submenu>
               <el-menu-item-group v-else>
-                <el-menu-item :key="subIndex" :index="`${index}-${subIndex}`">
+                <el-menu-item :key="subIndex" :index="`${subItem.name}`">
                   <div @click="turnPage(subItem.name)">
-                    {{ subItem.name }}
+                    {{ $t(subItem.meta.title || '') }}
                   </div>
                 </el-menu-item>
               </el-menu-item-group>
             </template>
           </el-submenu>
-          <el-menu-item :index="`${index}`" :key="index + 'ele'" v-else>
+          <el-menu-item :index="`${item.name}`" :key="index + 'ele'" v-else>
             <i :class="item.icon"></i>
-            <template #title>{{ item.name }}</template>
+            <template #title>{{ $t(item.meta.title || '') }}</template>
           </el-menu-item>
         </template>
       </el-menu>
@@ -63,10 +66,12 @@
   </el-aside>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, watch, ref } from 'vue';
+import { useRoute, RouteLocationNormalizedLoaded } from 'vue-router';
 import routers from '../../../router/modules'; // 获取路由配置
 import menuListByRoutes from './composables/menuListByRoutes';
 import { asideMenu } from '../../../assets/config/theme';
+import getActiveAndOpenName from './composables/getActiveName';
 
 export default defineComponent({
   name: 'asideMenu',
@@ -84,15 +89,7 @@ export default defineComponent({
       type: Number,
       default: 16
     },
-    accordion: Boolean,
-    activeName: {
-      type: String,
-      default: ''
-    },
-    openNames: {
-      type: Array,
-      default: () => []
-    }
+    accordion: Boolean
   },
   methods: {
     turnPage(name: string) {
@@ -102,9 +99,23 @@ export default defineComponent({
       e.preventDefault();
     }
   },
-  setup(props) {
+  setup() {
+    const route: RouteLocationNormalizedLoaded = useRoute();
+    const menuActive = ref(getActiveAndOpenName(route));
+    // 监听route变化
+    watch(
+      () => route,
+      () => {
+        // 回调函数
+        menuActive.value = getActiveAndOpenName(route);
+      },
+      {
+        immediate: true,
+        deep: true
+      }
+    );
     const menuList = menuListByRoutes(routers, ['borrower_user_list']);
-    return { menuList, asideMenu };
+    return { menuList, asideMenu, menuActive };
   }
 });
 </script>

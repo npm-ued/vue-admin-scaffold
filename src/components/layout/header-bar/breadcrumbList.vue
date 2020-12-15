@@ -10,7 +10,7 @@
         :class="['el-breadcrumb__inner', item.path ? 'is-link' : '']"
       >
         <i v-if="item.icon" :class="item.icon"></i>
-        {{ item.name }}
+        {{ $t(item.title) }}
       </span>
       <i
         v-if="separatorClass"

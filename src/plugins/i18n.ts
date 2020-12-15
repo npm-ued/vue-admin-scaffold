@@ -20,9 +20,8 @@
 //   if (!i18n) throw new Error('No i18n provided!!!');
 //   return i18n;
 // }
-// import { App } from 'vue';
+import { App } from 'vue';
 import i18n from '../i18n';
-export default (app: any) => {
-  // app.use(i18n);
-  app.component(i18n);
+export default (app: App) => {
+  app.use(i18n);
 };

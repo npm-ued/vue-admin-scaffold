@@ -23,7 +23,7 @@ interface ObjItem {
 class MyServer {
   server: AxiosInstance = server;
   // 当前this指向
-  nowHandle: any = null;
+  // nowHandle: any = null;
   /**
    * 当前实例对象 this
    * @param {any} obj

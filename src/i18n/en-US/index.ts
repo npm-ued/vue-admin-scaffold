@@ -1,8 +1,8 @@
 /*
  * @Author: vue admin scaffold
  * @Date: 2020-12-12 21:25:51
- * @Last Modified by:   vue admin scaffold
- * @Last Modified time: 2020-12-12 21:25:51
+ * @Last Modified by: vue admin scaffold
+ * @Last Modified time: 2020-12-15 16:37:54
  * 英文文案
  */
 
@@ -11,6 +11,7 @@ import Login from './login';
 
 export default {
   CurrentLan: 'Current language',
+  LocaleLanguage: 'English',
   SystemName: 'Vue3.0 Admin',
   HomePage: 'Home',
   UserManager: 'Loan User Manager',

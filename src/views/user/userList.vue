@@ -27,7 +27,6 @@ export default {
     const name = computed(() => {
       return $store ? $store.state.app.name : '';
     });
-    console.log(name);
     const change = function () {
       // console.log('change');
       $store.commit('app/change', 'aaa');

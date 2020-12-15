@@ -6,13 +6,17 @@
     <div class="custom-bread-crumb">
       <breadcrumbList separator="/" :breadList="list" />
     </div>
+    <a @click="changeLanguage">
+      {{ $t('CurrentLan') }}: {{ $t('LocaleLanguage') }}
+    </a>
   </el-header>
 </template>
 <script lang="ts">
 import BreadcrumbList from './breadcrumbList.vue';
 import { defineComponent, ref, watch } from 'vue';
-import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router';
+import { useRoute, RouteLocationNormalizedLoaded } from 'vue-router';
 import getBreadcrumbList from './composables/getBreadcrumbList';
+import { changeLanguage } from '../../../i18n';
 export default defineComponent({
   name: 'headerBar',
   data() {
@@ -41,7 +45,7 @@ export default defineComponent({
         deep: true
       }
     );
-    return { list };
+    return { list, changeLanguage };
   },
   components: {
     BreadcrumbList

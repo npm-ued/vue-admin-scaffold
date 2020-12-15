@@ -9,7 +9,7 @@ import routeList from '../../../../router/modules';
  */
 function getHomeRoute(routers: RouteRecordRaw[], homeName: string): Breadcrumb {
   homeName = homeName || 'home';
-  let home: Breadcrumb = { name: '' };
+  let home: Breadcrumb = { name: '', title: '' };
   let i = -1;
   // const routes: Array<RouteRecordRaw> = [...routeList];
   const len = routers.length;
@@ -23,7 +23,8 @@ function getHomeRoute(routers: RouteRecordRaw[], homeName: string): Breadcrumb {
     } else {
       if (item.name === homeName) {
         const { name, path, meta } = item;
-        home = { name, path, icon: meta?.icon };
+        const title = meta?.title as string;
+        home = { name, path, icon: meta?.icon, title };
       }
     }
   }
@@ -49,9 +50,10 @@ function getBreadcrumbList(
     return [homeItem];
   }
   list = matched.map((item) => {
-    const { name, path, meta } = item;
+    const { name, meta } = item;
     const nameStr = name as string; // 类型强转
-    return { name: nameStr };
+    const title = meta?.title as string;
+    return { name: nameStr, title };
   });
   list.unshift(homeItem);
   return list;

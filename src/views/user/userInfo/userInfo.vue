@@ -4,16 +4,15 @@
     <el-button @click="toTurn">to1</el-button>
     <el-button @click="getUserInfo">to2</el-button>
     <customCard />
-    {{ test }}
   </div>
 </template>
 <script lang="ts">
-import Vue, { defineComponent, ref, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, getCurrentInstance } from 'vue';
 import getUserInfoList from './composables/getUserInfo';
 import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'userInfo',
-  setup(props) {
+  setup() {
     const instance = getCurrentInstance();
     const router = useRouter();
     const toTurn = function () {
@@ -23,8 +22,7 @@ export default defineComponent({
     const $ajax = instance
       ? instance.appContext.config.globalProperties.$ajax
       : null;
-    const { getUserInfo } = getUserInfoList($ajax, router);
-    // return { getUserInfo };
+    const { getUserInfo } = getUserInfoList($ajax);
     return { toTurn, getUserInfo };
   }
 });

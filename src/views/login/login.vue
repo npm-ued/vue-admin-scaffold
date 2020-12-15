@@ -1,12 +1,12 @@
 <template>
   <div class="loginBox">
-    <div class="loginTitle">Vue3.0 Admin</div>
+    <div class="loginTitle">{{ $t('SystemName') }}</div>
     <div class="loginMain clearfix">
       <div class="loginLeft">
         <img src="../../assets/image/login/loginLeft.png" alt="" />
       </div>
       <form class="loginForm" action="/login" method="post">
-        <div class="loginFormTitle">管理员登录</div>
+        <div class="loginFormTitle">{{ $t('Login.AdministratorLogin') }}</div>
         <p class="showMsg" v-show="showErrorMessage">{{ ErrorMessage }}</p>
         <div class="loginGroup">
           <div class="loginIcon">
@@ -16,7 +16,7 @@
             v-model.trim="loginUserName"
             class="loginControl"
             autocomplete="off"
-            placeholder="请输入"
+            :placeholder="$t('Common.PleaseEnter')"
           />
         </div>
         <div class="loginGroup">
@@ -27,7 +27,7 @@
             v-model.trim="code"
             class="loginControl"
             autocomplete="off"
-            placeholder="请输入"
+            :placeholder="$t('Common.PleaseEnter')"
           />
           <el-button
             type="primary"
@@ -35,19 +35,21 @@
             class="codeBtn"
             @click="sendCode"
           >
-            获取验证码
+            {{ $t('Login.GetCode') }}
           </el-button>
           <el-button type="default" v-else class="codeBtnDisable" disabled>
-            {{ codeText }}重新获取
+            {{ codeText }}{{ $t('Login.Resend') }}
           </el-button>
         </div>
         <div class="langWrap">
           <a @click="changeLanguage" class="langLink">
-            当前语言：{{ localeLanguage }}
+            {{ $t('CurrentLan') }}: {{ $t('LocaleLanguage') }}
           </a>
         </div>
         <div class="form-group">
-          <el-button class="loginBtn" @click="login">登录</el-button>
+          <el-button class="loginBtn" @click="login">
+            {{ $t('Login.Login') }}
+          </el-button>
         </div>
       </form>
     </div>
@@ -55,10 +57,16 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { changeLanguage } from '../../i18n';
 export default defineComponent({
   name: 'login',
   setup(props) {
-    console.log('setup');
+    const router = useRouter();
+    const login = function () {
+      router.push({ path: '/' });
+    };
+    return { changeLanguage, login };
   }
 });
 </script>
@@ -177,6 +185,7 @@ html {
 .langLink {
   color: #1c4cff;
   font-size: 14px;
+  cursor: pointer;
 }
 .codeBtn {
   position: absolute;

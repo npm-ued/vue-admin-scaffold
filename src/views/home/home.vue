@@ -2,7 +2,10 @@
   <el-container direction="horizontal">
     <asideMenu :collapsed="collapsed">
       <template #logo>
-        <div class="big-logo" v-if="!collapsed">Vue3.0 Admin</div>
+        <div class="big-logo" v-if="!collapsed">
+          <img :src="minLogo" key="max-logo" class="logo-big" />
+          {{ $t('SystemName') }}
+        </div>
         <img v-else :src="minLogo" key="min-logo" class="logo-mini" />
       </template>
     </asideMenu>
@@ -15,7 +18,7 @@
             v-if="isShowBg"
             class="bgWelcome"
             src="../../assets/image/welcome.png"
-            alt="欢迎"
+            :alt="welcome"
           />
         </div>
       </el-main>
@@ -24,6 +27,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 import AsideMenu from '../../components/layout/aside-menu';
 import HeaderBar from '../../components/layout/header-bar';
 
@@ -36,6 +40,11 @@ export default defineComponent({
       minLogo: require('../../assets/image/index_title.png'), // 小lOGO
       maxLogo: require('../../assets/image/index_title.png') // 大 logo
     };
+  },
+  setup() {
+    const { t } = useI18n();
+    const welcome = t('Common.Welcome'); // 获取welcome的国际化值
+    return { welcome };
   },
   methods: {
     turnPage(name: string) {
@@ -86,5 +95,12 @@ export default defineComponent({
   margin: 10px auto;
   display: block;
   overflow: hidden;
+}
+.logo-big {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 </style>

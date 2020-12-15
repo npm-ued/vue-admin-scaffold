@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, ref } from 'vue';
+export default defineComponent({
   name: 'App'
-};
+});
 </script>
 <style>
 body {
