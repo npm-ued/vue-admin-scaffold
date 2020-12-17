@@ -57,7 +57,11 @@
           </el-submenu>
           <el-menu-item :index="`${item.name}`" :key="index + 'ele'" v-else>
             <i :class="item.icon"></i>
-            <template #title>{{ $t(item.meta.title || '') }}</template>
+            <template #title>
+              <a @click="turnPage(item.name)">
+                {{ $t(item.meta.title || '') }}
+              </a>
+            </template>
           </el-menu-item>
         </template>
       </el-menu>

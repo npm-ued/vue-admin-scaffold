@@ -1,15 +1,11 @@
 <template>
-  <router-view />
+  <div>
+    <h1>roleManager</h1>
+  </div>
 </template>
-
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 export default defineComponent({
-  name: 'App'
+  name: 'roleManager'
 });
 </script>
-<style>
-body {
-  background-color: #f5f7f9;
-}
-</style>

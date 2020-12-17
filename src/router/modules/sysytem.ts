@@ -13,22 +13,28 @@ export default [
     component: HomePage,
     // sort: 0,
     meta: {
-      title: 'UserManager',
-      icon: 'el-icon-user-solid',
+      title: 'SysManager',
+      icon: 'el-icon-s-tools',
       access: ['borrower_user_list']
     },
     children: [
       {
-        path: 'userList',
-        name: 'userList',
-        meta: { title: 'UserList', icon: 'md-list' },
-        component: () => import('@/views/user/userList.vue')
+        path: 'userSetting',
+        name: 'userSetting',
+        meta: { title: 'UserSetting', icon: 'md-list' },
+        component: () => import('@/views/system/userSetting/userSetting.vue')
       },
       {
-        path: 'userInfo',
-        name: 'userInfo',
-        meta: { title: 'UserList', icon: 'md-list' },
-        component: () => import('@/views/user/userInfo/userInfo.vue')
+        path: 'roleManager',
+        name: 'roleManager',
+        meta: { title: 'RoleManager', icon: 'md-list' },
+        component: () => import('@/views/system/roleManager/roleManager.vue')
+      },
+      {
+        path: 'permission',
+        name: 'permission',
+        meta: { title: 'PromissionManager', icon: 'md-barcode' },
+        component: () => import('@views/system/permission/permission.vue')
       }
     ]
   },

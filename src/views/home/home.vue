@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="horizontal">
+  <el-container direction="horizontal" class="contWrap">
     <asideMenu :collapsed="collapsed">
       <template #logo>
         <div class="big-logo" v-if="!collapsed">
@@ -73,21 +73,30 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
+.contWrap {
+  height: 100%;
+}
 .el-menu {
   height: 100%;
 }
 .content-wrapper {
   background-color: #ffffff;
   padding: 10px;
+  box-sizing: border-box;
+  min-height: 100%;
+  position: relative;
 }
 
 .el-aside {
   color: #333;
 }
 .bgWelcome {
-  max-width: 600px;
-  margin: 100px auto;
+  max-width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -250px auto auto -250px;
 }
 .logo-mini {
   width: 24px;

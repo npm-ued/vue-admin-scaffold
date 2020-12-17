@@ -15,6 +15,10 @@ export default {
   UserList: '用户列表',
   UserInfo: '用户信息',
   UserManager: '用户管理',
+  SysManager: '系统管理',
+  UserSetting: '用户管理',
+  RoleManager: '角色管理',
+  PromissionManager: '权限管理',
   // 公共
   Common,
   // 登录
