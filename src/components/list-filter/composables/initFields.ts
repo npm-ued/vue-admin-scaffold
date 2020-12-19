@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { FormItem } from '../list-filter';
 function getVerifyRules(verify: any, label: string): void {
   console.log('getVerifyRules');
 }
@@ -7,7 +8,7 @@ function getVerifyRules(verify: any, label: string): void {
  * @param formItems form的数组配置
  * @param defaultSpan 一列默认的宽度（栅格）
  */
-function initFields(formItems: any, defaultSpan = 4) {
+function initFields(formItems: FormItem[], defaultSpan = 4) {
   const fields: any = [];
   const spanNum = 24;
   if (formItems.length) {
@@ -21,7 +22,6 @@ function initFields(formItems: any, defaultSpan = 4) {
       };
       const item = Object.assign(config, formItems[i]);
       if (item.isShow) {
-        const { key, label, verify } = item;
         span += item.span;
         row.push(item);
         if (span >= spanNum) {

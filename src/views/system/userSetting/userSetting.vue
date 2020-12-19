@@ -30,6 +30,24 @@ export default defineComponent({
         label: 'Uname',
         model: 'uname'
       },
+      // 开始时间
+      {
+        label: '开始时间',
+        model: 'startTime',
+        type: 'date'
+      },
+      // 结束时间
+      {
+        label: '结束时间',
+        model: 'endTime',
+        type: 'date'
+      },
+      // 状态
+      {
+        label: '状态',
+        model: 'status',
+        type: 'select'
+      },
       // 按钮
       {
         type: 'button',

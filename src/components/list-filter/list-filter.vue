@@ -7,12 +7,30 @@
           :span="item.span"
           :key="indexKey"
         >
-          <div class="grid-content">
+          <div class="grid-content filterInputItem">
             <el-input
+              v-if="item.type === 'input'"
+              v-model="filterModel[item.model]"
               :placeholder="item.label"
-              :value="filter[item.key]"
-              clearable
             />
+            <el-date-picker
+              v-if="item.type === 'date' || item.type === 'datetime'"
+              v-model="filterModel[item.model]"
+              :type="item.type"
+              :placeholder="item.label"
+            />
+            <div v-if="item.type === 'button'">
+              <!-- 重置按钮 -->
+              <el-button @click="resetForm">{{ $t('Common.Reset') }}</el-button>
+              <!-- 其他按钮 -->
+              <el-button
+                v-for="(buttonItem, indexBtn) in item.buttonArr"
+                :key="indexBtn"
+                :type="buttonItem.type"
+              >
+                {{ buttonItem.message }}
+              </el-button>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -20,8 +38,11 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import initFields from './composables/initFields';
+import initFilterModel from './composables/initFilterModel';
+import { ListFilterProps, FormItem, FilterModel } from './list-filter';
+
 export default defineComponent({
   name: 'listFilter',
   props: {
@@ -45,14 +66,16 @@ export default defineComponent({
       default: 4
     }
   },
-  setup(props) {
+  setup(props: ListFilterProps) {
     const buttonStatus = ref(false); // 按钮切换
     const changeStatus = () => {
       buttonStatus.value = !buttonStatus.value;
     };
-    const { fields } = initFields(props.formItems);
-    console.log(fields);
-    return { changeStatus, fields };
+    const formItems = props.formItems as Array<FormItem>;
+    const filter = props.filter as FilterModel;
+    const { fields } = initFields(formItems);
+    const { filterModel, resetForm } = initFilterModel(formItems, filter);
+    return { changeStatus, fields, filterModel, resetForm };
   }
 });
 </script>
@@ -60,11 +83,10 @@ export default defineComponent({
 .filterFormShow {
   height: 55px;
 }
-.ivu-form-item {
-  width: 100%;
+.filterInputItem {
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 .contentStatus {
   padding: 10px 40px;

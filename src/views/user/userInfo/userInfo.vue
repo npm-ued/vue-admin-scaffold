@@ -4,10 +4,15 @@
     <el-button @click="toTurn">to1</el-button>
     <el-button @click="getUserInfo">to2</el-button>
     <customCard />
+    <el-input v-model="model.name" placeholder="请输入内容"></el-input>
+    {{ model.name }}
+    <el-input v-model="model.uname" placeholder="请输入内容"></el-input>
+    {{ model.uname }}
+    <el-button @click="clear">重置</el-button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, getCurrentInstance } from 'vue';
+import { defineComponent, getCurrentInstance, reactive, ref } from 'vue';
 import getUserInfoList from './composables/getUserInfo';
 import { useRouter } from 'vue-router';
 export default defineComponent({
@@ -23,7 +28,20 @@ export default defineComponent({
       ? instance.appContext.config.globalProperties.$ajax
       : null;
     const { getUserInfo } = getUserInfoList($ajax);
-    return { toTurn, getUserInfo };
+    // const input = '';
+    let model = reactive({
+      name: '',
+      uname: ''
+    });
+
+    const clear = function () {
+      model = reactive({
+        name: '',
+        uname: ''
+      });
+    };
+
+    return { toTurn, getUserInfo, model, clear };
   }
 });
 </script>

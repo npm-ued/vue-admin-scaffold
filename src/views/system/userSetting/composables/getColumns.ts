@@ -1,4 +1,4 @@
-interface TableColumn {
+export interface TableColumn {
   title: string;
   key: string;
   width?: number;
