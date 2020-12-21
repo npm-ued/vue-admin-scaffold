@@ -1,10 +1,5 @@
-import { FilterModel, FormItem } from '../list-filter';
+import { FilterModel, FormItem, FilterReturn } from '../custom-list';
 import { reactive } from 'vue';
-
-interface FilterReturn {
-  filterModel: FilterModel;
-  resetForm: Function;
-}
 
 /**
  * 根据筛选字段定义筛选模型

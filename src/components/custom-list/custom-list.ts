@@ -1,6 +1,6 @@
-export interface ListFilterProps {
-  filterModel: FilterModel[];
-  defaultSpan: number;
+export interface FilterReturn {
+  filterModel: FilterModel;
+  resetForm: Function;
 }
 
 // 设置快捷选项
@@ -14,8 +14,6 @@ interface Option {
   name: string;
   disabled: boolean;
 }
-
-// 字段在热更新的时候，报错，需要重启
 export interface FormItem {
   label: string;
   model: string;

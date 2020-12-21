@@ -9,29 +9,29 @@ function getColumns(): Array<TableColumn> {
   // 列
   const columns: TableColumn[] = [
     {
-      title: '日期',
-      key: 'date'
-    },
-    {
       title: '姓名',
-      key: 'name'
+      key: 'firstName'
     },
     {
-      title: '省份',
-      key: 'province'
+      title: '性别',
+      key: 'sex'
     },
     {
-      title: '市区',
-      key: 'city'
+      title: '状态',
+      key: 'status'
     },
     {
-      title: '地址',
-      key: 'address',
+      title: '注册时间',
+      key: 'regTime'
+    },
+    {
+      title: '身份证号',
+      key: 'idCardNo',
       width: 230
     },
     {
-      title: '邮编',
-      key: 'zip'
+      title: '手机号',
+      key: 'mobile'
     }
   ];
   return columns;

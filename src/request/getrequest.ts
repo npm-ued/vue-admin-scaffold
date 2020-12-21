@@ -19,6 +19,11 @@ interface ObjItem {
   [key: string]: any;
 }
 
+interface AjaxObj {
+  url: string;
+  method: Method;
+}
+
 // 定义myserver方法
 class MyServer {
   server: AxiosInstance = server;
@@ -55,12 +60,12 @@ class MyServer {
   public sendMes(
     moduleName: string,
     name: string,
-    url: string,
+    ajax: AjaxObj,
     config: ServerConfig
   ): void {
     const configs = config || {};
     // 请求类型
-    const type = configs.type || 'get';
+    const type = configs.type || ajax.method || 'get';
     // 是否传参
     const data = configs.data || {};
     // 可自定义name
@@ -106,7 +111,7 @@ class MyServer {
       // get 方法
       get: function () {
         self.server
-          .get(url, { params: data })
+          .get(ajax.url, { params: data })
           .then(before)
           .then(callback)
           .catch(errorback);
@@ -114,7 +119,7 @@ class MyServer {
       // post 方法
       post: function () {
         self.server
-          .post(url, data)
+          .post(ajax.url, data)
           .then(before)
           .then(callback)
           .catch(errorback);

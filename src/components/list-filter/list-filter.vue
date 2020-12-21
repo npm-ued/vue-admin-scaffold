@@ -1,25 +1,48 @@
 <template>
-  <div class="filterOutBox" v-if="formItems.length">
+  <div class="filterOutBox" v-if="fields.length">
     <template v-for="(row, index) in fields" :key="index">
-      <el-row :gutter="20">
+      <el-row :gutter="10">
         <el-col
           v-for="(item, indexKey) in row"
           :span="item.span"
           :key="indexKey"
         >
           <div class="grid-content filterInputItem">
+            <!-- 文本输入框开始 -->
             <el-input
               v-if="item.type === 'input'"
-              v-model="filterModel[item.model]"
+              :v-model="filterModel[item.model]"
               :placeholder="item.label"
             />
+            <!-- 文本输入框结束 -->
+            <!-- 时间选择器开始 -->
             <el-date-picker
               v-if="item.type === 'date' || item.type === 'datetime'"
-              v-model="filterModel[item.model]"
+              :v-model="filterModel[item.model]"
               :type="item.type"
               :placeholder="item.label"
+              :shortcuts="item.shortcuts"
             />
-            <div v-if="item.type === 'button'">
+            <!-- 时间选择器结束 -->
+            <!-- select选择开始 -->
+            <el-select
+              v-if="item.type === 'select'"
+              :v-model="filterModel[item.model]"
+              clearable
+              :placeholder="item.label"
+            >
+              <el-option
+                v-for="itemOption in item.options"
+                :key="itemOption.value"
+                :label="itemOption.name"
+                :value="itemOption.value"
+                :disabled="itemOption.disabled"
+              >
+              </el-option>
+            </el-select>
+            <!-- select选择结束 -->
+            <!-- 按钮开始 -->
+            <div v-if="item.type === 'button'" class="fliterRight">
               <!-- 重置按钮 -->
               <el-button @click="resetForm">{{ $t('Common.Reset') }}</el-button>
               <!-- 其他按钮 -->
@@ -27,10 +50,12 @@
                 v-for="(buttonItem, indexBtn) in item.buttonArr"
                 :key="indexBtn"
                 :type="buttonItem.type"
+                @click="save"
               >
                 {{ buttonItem.message }}
               </el-button>
             </div>
+            <!-- 按钮结束 -->
           </div>
         </el-col>
       </el-row>
@@ -38,27 +63,20 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
-import initFields from './composables/initFields';
-import initFilterModel from './composables/initFilterModel';
-import { ListFilterProps, FormItem, FilterModel } from './list-filter';
+import { defineComponent, ref, toRefs } from 'vue';
 
 export default defineComponent({
   name: 'listFilter',
   props: {
     // 筛选项数组
-    formItems: {
+    fields: {
       type: Array,
       default: () => {
         return [];
       }
     },
-    // 筛选对象
-    filter: {
-      type: Object,
-      default: () => {
-        return {};
-      }
+    filterModel: {
+      type: Object
     },
     // 每个筛选项默认的栅格宽度，整个一行24栅格
     defaultSpan: {
@@ -66,16 +84,24 @@ export default defineComponent({
       default: 4
     }
   },
-  setup(props: ListFilterProps) {
+  data() {
+    return {
+      value1: ''
+    };
+  },
+  methods: {
+    save() {
+      // console.log(this.filterModel);
+    }
+  },
+  setup(props) {
+    // const { filterModel } = toRefs(props);
+    console.log(props.filterModel);
     const buttonStatus = ref(false); // 按钮切换
     const changeStatus = () => {
       buttonStatus.value = !buttonStatus.value;
     };
-    const formItems = props.formItems as Array<FormItem>;
-    const filter = props.filter as FilterModel;
-    const { fields } = initFields(formItems);
-    const { filterModel, resetForm } = initFilterModel(formItems, filter);
-    return { changeStatus, fields, filterModel, resetForm };
+    return { changeStatus };
   }
 });
 </script>

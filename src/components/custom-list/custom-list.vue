@@ -1,7 +1,7 @@
 <template>
-  <listFilter :formItems="filterItems" />
+  <listFilter :filterModel="filterModel" :fields="fields" />
   <el-table
-    :data="dataList"
+    :data="dataArr"
     stripe
     border
     :max-height="maxHeight"
@@ -17,29 +17,46 @@
   </el-table>
   <div class="pageWrap">
     <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      @size-change="changeSize"
+      @current-change="changePage"
       :current-page="currentPage"
-      :page-sizes="[10, 20, 30, 40]"
-      :page-size="10"
+      :page-sizes="pageSizes"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
+      :total="totalCount"
     />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import ListFilter from '../list-filter';
+import getTableData from './composables/getTableInfo';
+import getPage from './composables/getPage';
+import initFields from './composables/initFields';
+import initFilterModel from './composables/initFilterModel';
+import { FormItem, FilterModel } from './custom-list';
+
 export default defineComponent({
   name: 'customList',
   components: {
     ListFilter
+  },
+  data() {
+    return {
+      selection: [], // 已选择项
+      selectRow: null // 当前选择行
+    };
   },
   props: {
     // 列配置
     columns: {
       type: Array,
       required: true
+    },
+    ajaxType: {
+      // ajax 的类型
+      type: String,
+      default: 'get'
     },
     // 数据
     dataList: {
@@ -56,21 +73,44 @@ export default defineComponent({
     maxHeight: {
       type: Number,
       default: 540
+    },
+    // 筛选对象
+    filter: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
   },
   setup(props) {
-    const fColumns = ref(props.columns);
-    const total = 1000;
-    const currentPage = 1;
-    return { fColumns, total, currentPage };
-  },
-  methods: {
-    handleSizeChange(sizes: any) {
-      console.log(`每页：${sizes} 条`);
-    },
-    handleCurrentChange(val: any) {
-      console.log(`当前页：${val} `);
-    }
+    const fColumns: any = ref(props.columns); // 初始化列的配置参数
+    const filterItems = props.filterItems as Array<FormItem>;
+    const filter = props.filter as FilterModel;
+    const { fields } = initFields(filterItems);
+    const { filterModel, resetForm } = initFilterModel(filterItems, filter);
+
+    const { dataArr, totalCount, tableLoading, loadData } = getTableData();
+    const {
+      currentPage,
+      pageSize,
+      pageSizes,
+      changePage,
+      changeSize
+    } = getPage(loadData);
+
+    return {
+      fColumns,
+      totalCount,
+      pageSize,
+      pageSizes,
+      dataArr,
+      currentPage,
+      changePage,
+      changeSize,
+      filterModel,
+      fields,
+      resetForm
+    };
   }
 });
 </script>

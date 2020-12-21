@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { FormItem } from '../list-filter';
+import { FormItem } from '../custom-list';
 function getVerifyRules(verify: any, label: string): void {
   console.log('getVerifyRules');
 }

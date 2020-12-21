@@ -41,3 +41,14 @@ html, body, #app {
   padding: 10px !important;
 }
 /* 内容区结束 */
+
+
+/* 列表筛选开始 */
+.filterOutBox .el-date-editor.el-input,
+.filterOutBox .el-date-editor.el-input__inner {
+  width: 100%;
+}
+.filterOutBox .el-select {
+  width: 100%;
+}
+/* 列表筛选结束 */

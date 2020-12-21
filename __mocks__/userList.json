@@ -1,8 +1,8 @@
 {
-  "code": 0,
+  "code": 200,
   "data": {
-    "endRow": 0,
-    "firstPage": 0,
+    "endRow": 10,
+    "firstPage": 1,
     "hasNextPage": true,
     "hasPreviousPage": true,
     "isFirstPage": true,
@@ -10,14 +10,14 @@
     "lastPage": 0,
     "list|10": [
       {
-        "birthday": "2020-04-28T08:37:43.231Z",
+        "birthday": "2020-12-21T06:48:38.000+0000",
         "firstName": "@cname()",
         "idCardNo": "@id()",
         "idCardType": "",
         "lastName": "@cname()",
         "middleName": "@cname()",
         "mobile|18800000000-18899999999": 0,
-        "regTime": "2020-04-28T08:37:43.231Z",
+        "regTime": "2020-12-21T06:48:39.000+0000",
         "sex|1": ["MALE", "FEMALE"],
         "status|1": ["NORMAL"],
         "uname": "@id()"

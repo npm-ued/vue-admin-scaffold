@@ -8,6 +8,11 @@
     {{ model.name }}
     <el-input v-model="model.uname" placeholder="请输入内容"></el-input>
     {{ model.uname }}
+    <el-date-picker
+      v-model="model.start"
+      type="date"
+      placeholder="选择日期"
+    ></el-date-picker>
     <el-button @click="clear">重置</el-button>
   </div>
 </template>
@@ -31,13 +36,15 @@ export default defineComponent({
     // const input = '';
     let model = reactive({
       name: '',
-      uname: ''
+      uname: '',
+      start: ''
     });
 
     const clear = function () {
       model = reactive({
         name: '',
-        uname: ''
+        uname: '',
+        start: ''
       });
     };
 
