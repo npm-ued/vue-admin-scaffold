@@ -11,14 +11,16 @@
             <!-- 文本输入框开始 -->
             <el-input
               v-if="item.type === 'input'"
-              :v-model="filterModel[item.model]"
+              v-model="filterModel[item.model]"
               :placeholder="item.label"
             />
             <!-- 文本输入框结束 -->
             <!-- 时间选择器开始 -->
             <el-date-picker
               v-if="item.type === 'date' || item.type === 'datetime'"
-              :v-model="filterModel[item.model]"
+              :value="filterModel[item.model]"
+              @change="$emit('input', $event.target.value)"
+              @focus="$emit('input', $event.target.value)"
               :type="item.type"
               :placeholder="item.label"
               :shortcuts="item.shortcuts"
@@ -27,7 +29,9 @@
             <!-- select选择开始 -->
             <el-select
               v-if="item.type === 'select'"
-              :v-model="filterModel[item.model]"
+              :value="filterModel[item.model]"
+              @change="$emit('input', $event.target.value)"
+              @focus="$emit('input', $event.target.value)"
               clearable
               :placeholder="item.label"
             >
@@ -44,7 +48,7 @@
             <!-- 按钮开始 -->
             <div v-if="item.type === 'button'" class="fliterRight">
               <!-- 重置按钮 -->
-              <el-button @click="resetForm">{{ $t('Common.Reset') }}</el-button>
+              <el-button>{{ $t('Common.Reset') }}</el-button>
               <!-- 其他按钮 -->
               <el-button
                 v-for="(buttonItem, indexBtn) in item.buttonArr"
@@ -63,20 +67,27 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue';
-
+import { AnyObject } from 'element-plus/lib/el-table/src/table.type';
+import { defineComponent, ref } from 'vue';
+import { ListFilterProps } from './list-filter';
+interface FilterModel {
+  [propName: string]: any;
+}
 export default defineComponent({
   name: 'listFilter',
   props: {
     // 筛选项数组
     fields: {
-      type: Array,
+      type: Array as () => FilterModel[],
       default: () => {
         return [];
       }
     },
     filterModel: {
-      type: Object
+      type: Object as () => FilterModel,
+      default: () => {
+        return {};
+      }
     },
     // 每个筛选项默认的栅格宽度，整个一行24栅格
     defaultSpan: {
@@ -94,9 +105,9 @@ export default defineComponent({
       // console.log(this.filterModel);
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     // const { filterModel } = toRefs(props);
-    console.log(props.filterModel);
+    // console.log(props.filterModel);
     const buttonStatus = ref(false); // 按钮切换
     const changeStatus = () => {
       buttonStatus.value = !buttonStatus.value;

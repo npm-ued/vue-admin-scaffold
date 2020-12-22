@@ -1,5 +1,6 @@
 export interface ListFilterProps {
-  filterModel: FilterModel[];
+  fields: FilterModel[];
+  filterModel: Record<string, any>;
   defaultSpan: number;
 }
 
