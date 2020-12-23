@@ -18,9 +18,7 @@
             <!-- 时间选择器开始 -->
             <el-date-picker
               v-if="item.type === 'date' || item.type === 'datetime'"
-              :value="filterModel[item.model]"
-              @change="$emit('input', $event.target.value)"
-              @focus="$emit('input', $event.target.value)"
+              v-model="filterModel[item.model]"
               :type="item.type"
               :placeholder="item.label"
               :shortcuts="item.shortcuts"
@@ -29,9 +27,7 @@
             <!-- select选择开始 -->
             <el-select
               v-if="item.type === 'select'"
-              :value="filterModel[item.model]"
-              @change="$emit('input', $event.target.value)"
-              @focus="$emit('input', $event.target.value)"
+              v-model="filterModel[item.model]"
               clearable
               :placeholder="item.label"
             >
@@ -46,18 +42,22 @@
             </el-select>
             <!-- select选择结束 -->
             <!-- 按钮开始 -->
-            <div v-if="item.type === 'button'" class="fliterRight">
+            <div class="fliterRight" v-if="item.type === 'button'">
               <!-- 重置按钮 -->
-              <el-button>{{ $t('Common.Reset') }}</el-button>
-              <!-- 其他按钮 -->
-              <el-button
-                v-for="(buttonItem, indexBtn) in item.buttonArr"
-                :key="indexBtn"
-                :type="buttonItem.type"
-                @click="save"
-              >
-                {{ buttonItem.message }}
+              <el-button @click="resetForm">{{ $t('Common.Reset') }}</el-button>
+              <el-button @click="query" type="primary">
+                {{ $t('Common.Inquire') }}
               </el-button>
+              <!-- 其他按钮 -->
+              <template>
+                <el-button
+                  v-for="(buttonItem, indexBtn) in item.buttonArr"
+                  :key="indexBtn"
+                  :type="buttonItem.type"
+                >
+                  {{ buttonItem.message }}
+                </el-button>
+              </template>
             </div>
             <!-- 按钮结束 -->
           </div>
@@ -67,8 +67,7 @@
   </div>
 </template>
 <script lang="ts">
-import { AnyObject } from 'element-plus/lib/el-table/src/table.type';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, toRefs } from 'vue';
 import { ListFilterProps } from './list-filter';
 interface FilterModel {
   [propName: string]: any;
@@ -83,11 +82,19 @@ export default defineComponent({
         return [];
       }
     },
-    filterModel: {
+    filter: {
       type: Object as () => FilterModel,
       default: () => {
         return {};
       }
+    },
+    // 重置
+    resetForm: {
+      type: Function
+    },
+    // 查询
+    query: {
+      type: Function
     },
     // 每个筛选项默认的栅格宽度，整个一行24栅格
     defaultSpan: {
@@ -102,17 +109,17 @@ export default defineComponent({
   },
   methods: {
     save() {
-      // console.log(this.filterModel);
+      console.log(this.filterModel);
     }
   },
-  setup(props, { emit }) {
-    // const { filterModel } = toRefs(props);
-    // console.log(props.filterModel);
+  setup(props) {
+    const { filter } = toRefs(props);
+    const filterModel = filter;
     const buttonStatus = ref(false); // 按钮切换
     const changeStatus = () => {
       buttonStatus.value = !buttonStatus.value;
     };
-    return { changeStatus };
+    return { changeStatus, filterModel };
   }
 });
 </script>

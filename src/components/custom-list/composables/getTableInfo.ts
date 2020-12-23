@@ -1,6 +1,8 @@
 import { LoginApi } from '@/api/login';
 import { getCurrentInstance, ref } from 'vue';
 interface DataItem {
+  pageSize: number;
+  pageNum: number;
   [propName: string]: any;
 }
 
@@ -19,11 +21,18 @@ function getTableData() {
    * @param pageNum 当前页码
    * @param pageSize 每页条数
    */
-  const loadData = (pageNum = 1, pageSize = 10) => {
+  const loadData = (data?: DataItem) => {
+    // 基础分页配置
+    const page = {
+      pageSize: 10,
+      pageNum: 1
+    };
+    const dataConfig = Object.assign(page, data);
+    console.log(dataConfig);
     const loginApi: LoginApi = $ajax.login;
     tableLoading.value = true;
     loginApi.userList({
-      data: {},
+      data: dataConfig,
       success: function (res: any, d: any) {
         const res1 = res.data;
         const list1 = d(res1);
@@ -39,6 +48,7 @@ function getTableData() {
       }
     });
   };
+  // 初始化获取一次
   loadData();
   return { dataArr, totalCount, tableLoading, currentPage, loadData };
 }

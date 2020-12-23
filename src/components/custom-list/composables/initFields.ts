@@ -9,10 +9,10 @@ function getVerifyRules(verify: any, label: string): void {
  * @param defaultSpan 一列默认的宽度（栅格）
  */
 function initFields(formItems: FormItem[], defaultSpan = 4) {
-  const fields: any = [];
+  const fields: Array<FormItem[]> = [];
   const spanNum = 24;
   if (formItems.length) {
-    let row = [],
+    let row: FormItem[] = [],
       span = 0;
     for (let i = 0; i < formItems.length; i++) {
       const config = {
@@ -20,11 +20,11 @@ function initFields(formItems: FormItem[], defaultSpan = 4) {
         span: defaultSpan, // 补全span
         isShow: true // 补全isShow 属性
       };
-      const item = Object.assign(config, formItems[i]);
+      const item: FormItem = Object.assign(config, formItems[i]);
       const { type } = item;
-      item.type = type.toLocaleLowerCase();
-      if (item.isShow) {
-        span += item.span;
+      item.type = type?.toLocaleLowerCase();
+      if (item && item.isShow) {
+        span += item.span || defaultSpan;
         row.push(item);
         if (span >= spanNum) {
           fields.push(row);

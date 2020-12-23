@@ -1,6 +1,7 @@
 import { ref } from 'vue';
+import { FilterModel } from '../custom-list';
 
-function getPage(loadData: Function) {
+function getPage(loadData: Function, filterModel: FilterModel) {
   const currentPage = ref(1); // 当前页码
   const pageSizes = [10, 20, 30, 40]; // 每页条数切换
   const pageSize = ref(10); // 每页条数
@@ -11,7 +12,9 @@ function getPage(loadData: Function) {
   const changePage = (pageNum: number) => {
     console.log(`当前页：${pageNum} `);
     currentPage.value = pageNum;
-    loadData(currentPage, pageSize);
+    const size = pageSize.value;
+    const dataConfig = Object.assign({ pageSize: size, pageNum }, filterModel);
+    loadData(dataConfig);
   };
   /**
    * 分页条数切换
@@ -20,7 +23,9 @@ function getPage(loadData: Function) {
   const changeSize = (sizes: number) => {
     console.log(`每页：${sizes} 条`);
     pageSize.value = sizes;
-    loadData(currentPage, pageSize);
+    const pageNum = currentPage.value;
+    const dataConfig = Object.assign({ pageSize: sizes, pageNum }, filterModel);
+    loadData(dataConfig);
   };
 
   return { currentPage, pageSize, pageSizes, changePage, changeSize };

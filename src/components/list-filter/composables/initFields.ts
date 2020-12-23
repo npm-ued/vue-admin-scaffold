@@ -1,8 +1,5 @@
 import { ref } from 'vue';
 import { FormItem } from '../list-filter';
-function getVerifyRules(verify: any, label: string): void {
-  console.log('getVerifyRules');
-}
 /**
  * 初始化字段值
  * @param formItems form的数组配置
@@ -22,7 +19,7 @@ function initFields(formItems: FormItem[], defaultSpan = 4) {
       };
       const item = Object.assign(config, formItems[i]);
       const { type } = item;
-      item.type = type.toLocaleLowerCase();
+      item.type = type.toLocaleLowerCase(); // 转换成小写
       if (item.isShow) {
         span += item.span;
         row.push(item);

@@ -93,14 +93,7 @@ export default defineComponent({
       },
       {
         type: 'button',
-        span: 12,
-        buttonArr: [
-          {
-            message: '查询',
-            type: 'primary',
-            fun: 'searchTableInfo'
-          }
-        ]
+        span: 12
       }
     ];
     return { list, columns, tableData, formItemArr };

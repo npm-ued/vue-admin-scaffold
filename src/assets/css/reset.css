@@ -52,3 +52,6 @@ html, body, #app {
   width: 100%;
 }
 /* 列表筛选结束 */
+.el-table--border::after, .el-table--group::after, .el-table::before {
+  z-index: 2001;
+}

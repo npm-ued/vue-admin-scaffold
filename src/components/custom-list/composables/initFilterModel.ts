@@ -7,7 +7,8 @@ import { reactive } from 'vue';
  */
 function initFilterModel(
   formItems: FormItem[],
-  filter: FilterModel
+  filter: FilterModel,
+  loadData?: Function
 ): FilterReturn {
   // 通过传递的filterModel合并配置
   const filterObj: FilterModel = Object.assign({}, filter);
@@ -16,11 +17,10 @@ function initFilterModel(
     const { model } = item;
     const exceptionType = ['button'];
     if (!exceptionType.includes(item?.type as string)) {
-      filterObj[model] = ''; // 默认为空
+      filterObj[model] = undefined; // 默认为空
     }
   });
   const filterModel = reactive(filterObj);
-  console.log(filterModel);
   // 将赋值后的filter Model 重置为init时刻的状态
   const resetForm = ((filterInit: FilterModel) => {
     const filterInitModel = Object.assign({}, filterInit);
@@ -29,10 +29,19 @@ function initFilterModel(
       for (const key in filterInit) {
         filterInit[key] = filterInitModel[key];
       }
+      // 按筛选条件查询数据
+      loadData && loadData(filterInit);
     };
   })(filterModel);
 
-  return { filterModel, resetForm };
+  // 根据条件查询
+  const query = ((filterInit: FilterModel) => {
+    return function (): void {
+      loadData && loadData(filterInit);
+    };
+  })(filterModel);
+
+  return { filterModel, resetForm, query };
 }
 
 export default initFilterModel;

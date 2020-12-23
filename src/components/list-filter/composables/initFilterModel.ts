@@ -25,7 +25,6 @@ function initFilterModel(
     }
   });
   const filterModel = reactive(filterObj);
-  console.log(filterModel);
   // 将赋值后的filter Model 重置为init时刻的状态
   const resetForm = ((filterInit: FilterModel) => {
     const filterInitModel = Object.assign({}, filterInit);

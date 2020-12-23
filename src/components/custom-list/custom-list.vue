@@ -1,30 +1,38 @@
 <template>
-  <listFilter :filterModel="filterModel" :fields="fields" />
-  <el-table
-    :data="dataArr"
-    stripe
-    border
-    :max-height="maxHeight"
-    style="width: 100%"
-  >
-    <template v-for="(item, index) in fColumns" :key="index">
-      <el-table-column
-        :prop="item.key"
-        :label="item.title"
-        :width="item.width"
-      />
-    </template>
-  </el-table>
-  <div class="pageWrap">
-    <el-pagination
-      @size-change="changeSize"
-      @current-change="changePage"
-      :current-page="currentPage"
-      :page-sizes="pageSizes"
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="totalCount"
+  <div>
+    <listFilter
+      :filter="filterModel"
+      :fields="fields"
+      :resetForm="resetForm"
+      :query="query"
     />
+    <el-table
+      :data="dataArr"
+      stripe
+      border
+      :max-height="maxHeight"
+      style="width: 100%"
+      v-loading="tableLoading"
+    >
+      <template v-for="(item, index) in fColumns" :key="index">
+        <el-table-column
+          :prop="item.key"
+          :label="item.title"
+          :width="item.width"
+        />
+      </template>
+    </el-table>
+    <div class="pageWrap">
+      <el-pagination
+        @size-change="changeSize"
+        @current-change="changePage"
+        :current-page="currentPage"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totalCount"
+      />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -70,6 +78,7 @@ export default defineComponent({
     listUrl: {
       type: String
     },
+    // 最大高度
     maxHeight: {
       type: Number,
       default: 540
@@ -87,16 +96,19 @@ export default defineComponent({
     const filterItems = props.filterItems as Array<FormItem>;
     const filter = props.filter as FilterModel;
     const { fields } = initFields(filterItems);
-    const { filterModel, resetForm } = initFilterModel(filterItems, filter);
-
     const { dataArr, totalCount, tableLoading, loadData } = getTableData();
+    const { filterModel, resetForm, query } = initFilterModel(
+      filterItems,
+      filter,
+      loadData
+    );
     const {
       currentPage,
       pageSize,
       pageSizes,
       changePage,
       changeSize
-    } = getPage(loadData);
+    } = getPage(loadData, filterModel);
 
     return {
       fColumns,
@@ -109,7 +121,9 @@ export default defineComponent({
       changeSize,
       filterModel,
       fields,
-      resetForm
+      resetForm,
+      query,
+      tableLoading
     };
   }
 });

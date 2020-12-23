@@ -11,6 +11,7 @@
     </asideMenu>
     <el-container direction="vertical">
       <headerBar @on-change="handleCollapsedChange" />
+      <tagsNav />
       <el-main>
         <div class="content-wrapper">
           <router-view />
@@ -30,6 +31,7 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AsideMenu from '../../components/layout/aside-menu';
 import HeaderBar from '../../components/layout/header-bar';
+import TagsNav from '../../components/layout/tags-nav';
 
 export default defineComponent({
   name: 'home',
@@ -68,7 +70,8 @@ export default defineComponent({
   },
   components: {
     AsideMenu,
-    HeaderBar
+    HeaderBar,
+    TagsNav
   }
 });
 </script>

@@ -1,6 +1,7 @@
 export interface FilterReturn {
   filterModel: FilterModel;
   resetForm: Function;
+  query: Function;
 }
 
 // 设置快捷选项
@@ -22,6 +23,7 @@ export interface FormItem {
   buttonArr?: ButtonItem[];
   shortcuts?: Shortcut[];
   options?: Option[];
+  isShow?: boolean;
 }
 
 interface ButtonItem {
@@ -31,5 +33,5 @@ interface ButtonItem {
 }
 
 export interface FilterModel {
-  [propName: string]: string;
+  [propName: string]: string | undefined;
 }
