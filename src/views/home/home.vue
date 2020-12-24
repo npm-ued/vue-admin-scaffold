@@ -14,7 +14,9 @@
       <tagsNav />
       <el-main>
         <div class="content-wrapper">
-          <router-view />
+          <keep-alive :include="cacheList">
+            <router-view />
+          </keep-alive>
           <img
             v-if="isShowBg"
             class="bgWelcome"
@@ -27,7 +29,7 @@
   </el-container>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent, getCurrentInstance, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AsideMenu from '../../components/layout/aside-menu';
 import HeaderBar from '../../components/layout/header-bar';
@@ -46,7 +48,20 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const welcome = t('Common.Welcome'); // 获取welcome的国际化值
-    return { welcome };
+    const instance = getCurrentInstance();
+    const $store = instance?.appContext.config.globalProperties.$store;
+    // 获取tag-navs
+    const tagNavList = computed(() => {
+      return $store.state.app.tagNavList;
+    });
+    const list = tagNavList.value.length
+      ? tagNavList.value
+          .filter((item: any) => !(item.meta && item.mate.notCache))
+          .map((item: any) => item.name)
+      : [];
+    // keep-alive
+    const cacheList = ref(['commonRouterView', ...list]);
+    return { welcome, cacheList, tagNavList };
   },
   methods: {
     turnPage(name: string) {

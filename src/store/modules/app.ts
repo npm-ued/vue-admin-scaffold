@@ -1,7 +1,8 @@
 export default {
   namespaced: true,
   state: {
-    name: '111'
+    name: '111',
+    tagNavList: [] // 标签页
   },
   mutations: {
     change(state: any, str: string) {

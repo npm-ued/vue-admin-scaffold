@@ -28,7 +28,6 @@ export default {
       return $store ? $store.state.app.name : '';
     });
     const change = function () {
-      // console.log('change');
       $store.commit('app/change', 'aaa');
     };
     return { increate, age, name, change };

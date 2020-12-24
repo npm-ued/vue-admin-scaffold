@@ -1,0 +1,149 @@
+{
+  "code": 200,
+  "msg": "成功",
+  "data": {
+    "user_sex": [
+      {
+        "identify": "user_sex",
+        "key": "MALE",
+        "description": "男性"
+      },
+      {
+        "identify": "user_sex",
+        "key": "FEMALE",
+        "description": "女性"
+      }
+    ],
+    "user_status": [
+      {
+        "identify": "user_status",
+        "key": "NORMAL",
+        "description": "正常"
+      }
+    ],
+    "loan_status": [
+      {
+        "identify": "loan_status",
+        "key": "WITHDRAWABLE",
+        "description": "可提现状态"
+      },
+      {
+        "identify": "loan_status",
+        "key": "INTERCEPTED",
+        "description": "拦截状态"
+      },
+      {
+        "identify": "loan_status",
+        "key": "WITHDRAW",
+        "description": "已提现状态"
+      },
+      {
+        "identify": "loan_status",
+        "key": "REPAYMENT",
+        "description": "还款中"
+      },
+      {
+        "identify": "loan_status",
+        "key": "SETTLED",
+        "description": "结清"
+      }
+    ],
+    "transaction_log_type": [
+      {
+        "identify": "transaction_log_type",
+        "key": "WITHDRAW",
+        "description": "提现"
+      },
+      {
+        "identify": "transaction_log_type",
+        "key": "REPAY",
+        "description": "还款"
+      }
+    ],
+    "repay_plan_status": [
+      {
+        "identify": "repay_plan_status",
+        "key": "REPAYING",
+        "description": "还款中"
+      },
+      {
+        "identify": "repay_plan_status",
+        "key": "SETTLED",
+        "description": "结清"
+      }
+    ],
+    "project_status": [
+      {
+        "identify": "project_status",
+        "key": "APPROVAL_WAIT",
+        "description": "待审批"
+      },
+      {
+        "identify": "project_status",
+        "key": "APPROVAL_PASS",
+        "description": "审批通过"
+      },
+      {
+        "identify": "project_status",
+        "key": "APPROVAL_REFUSE",
+        "description": "审批拒绝"
+      },
+      {
+        "identify": "project_status",
+        "key": "SELLING",
+        "description": "上线在售"
+      },
+      {
+        "identify": "project_status",
+        "key": "OFFLINE",
+        "description": "已下线"
+      },
+      {
+        "identify": "project_status",
+        "key": "PRESELL",
+        "description": "预售"
+      }
+    ],
+    "project_interest_charge_type": [
+      {
+        "identify": "project_interest_charge_type",
+        "key": "AHEAD",
+        "description": "放款前收取利息"
+      },
+      {
+        "identify": "project_interest_charge_type",
+        "key": "AFTER",
+        "description": "放款后收取利息"
+      }
+    ],
+    "loan_request_status": [
+      {
+        "identify": "loan_request_status",
+        "key": "INIT",
+        "description": "初始状态"
+      },
+      {
+        "identify": "loan_request_status",
+        "key": "REFUSED",
+        "description": "申请拒绝"
+      },
+      {
+        "identify": "loan_request_status",
+        "key": "PASSED",
+        "description": "申请通过"
+      },
+      {
+        "identify": "loan_request_status",
+        "key": "AUDITING",
+        "description": "审核中"
+      }
+    ],
+    "admin_user_status": [
+      {
+        "identify": "admin_user_status",
+        "key": "NORMAL",
+        "description": "正常"
+      }
+    ]
+  }
+}

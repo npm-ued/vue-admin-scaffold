@@ -1,73 +1,59 @@
 <template>
-  <div style="margin-bottom: 20px">
-    <el-button size="small" @click="addTab">add tab</el-button>
+  <div class="tagNavWrapper">
+    <div class="scroll-outer">
+      <div class="scrollBody">
+        <el-tag
+          closable
+          v-for="(item, index) in tagNavList"
+          :key="index"
+          effect="plain"
+          class="navTag"
+        >
+          {{ $t(item.title || '') }}
+        </el-tag>
+      </div>
+    </div>
   </div>
-  <el-tabs
-    v-model="editableTabsValue"
-    type="card"
-    closable
-    @tab-remove="removeTab"
-  >
-    <el-tab-pane
-      v-for="item in editableTabs"
-      :key="item.name"
-      :label="item.title"
-      :name="item.name"
-    >
-    </el-tab-pane>
-  </el-tabs>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed, getCurrentInstance, watch } from 'vue';
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import setTagNavList from './composables/setTagNavList';
+import { TagNav } from './tags-nav';
 export default defineComponent({
   name: 'tagsNav',
-  data() {
-    return {
-      editableTabsValue: '2',
-      editableTabs: [
-        {
-          title: 'Tab 1',
-          name: '1',
-          content: 'Tab 1 content'
-        },
-        {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        }
-      ],
-      tabIndex: 2
-    };
-  },
-  methods: {
-    addTab(targetName: any) {
-      console.log('addTab');
-      // const newTabName = ++this.tabIndex + '';
-      // this.editableTabs.push({
-      //   title: 'New Tab',
-      //   name: newTabName,
-      //   content: 'New Tab content'
-      // });
-      // this.editableTabsValue = newTabName;
-    },
-    removeTab(targetName: any) {
-      const tabs = this.editableTabs;
-      let activeName = this.editableTabsValue;
-      if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
-          if (tab.name === targetName) {
-            const nextTab = tabs[index + 1] || tabs[index - 1];
-            if (nextTab) {
-              activeName = nextTab.name;
-            }
-          }
-        });
+  setup() {
+    const tagBodyLeft = ref(0);
+    const route: RouteLocationNormalizedLoaded = useRoute();
+    const navList: TagNav[] = [];
+    const $store = useStore();
+    const tagNavList = ref(navList);
+    // 监听route变化
+    watch(
+      () => route,
+      () => {
+        // 回调函数
+        // tagNavList.value = setTagNavList(route, $store);
+      },
+      {
+        immediate: true,
+        deep: true
       }
-      this.editableTabsValue = activeName;
-      this.editableTabs = tabs.filter((tab) => {
-        return tab.name !== targetName;
-      });
-    }
+    );
+    return { tagBodyLeft, tagNavList };
   }
 });
 </script>
+<style scoped>
+.tagNavWrapper {
+  background-color: #f0f0f0;
+  padding: 5px;
+}
+.scrollBody {
+  padding: 1px 4px 0;
+}
+.navTag {
+  margin: 2px 4px 2px 0;
+}
+</style>

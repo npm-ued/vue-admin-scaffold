@@ -20,7 +20,7 @@ function showThisMenuEle(item: any, access: string[]): boolean {
  * @param routers 路由
  * @param userAccess 权限
  */
-function menuListByRoutes(routers: any[], userAccess: string[]): any[] {
+function menuListByRoutes(routers: any[], userAccess: string[]) {
   const res: any[] = [];
   if (routers && routers.length > 0) {
     routers.forEach((item: any) => {
