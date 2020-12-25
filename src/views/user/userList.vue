@@ -1,36 +1,35 @@
 <template>
-  <div>
-    {{ age }}
-    <el-button @click="increate">add</el-button>
-    {{ name }}
-    <el-button @click="change">change</el-button>
-    <customList />
-  </div>
+  <div>userList</div>
 </template>
 <script>
-import { ref, onMounted, computed, getCurrentInstance } from 'vue';
+import {
+  ref,
+  onMounted,
+  computed,
+  getCurrentInstance,
+  watch,
+  watchEffect
+} from 'vue';
 export default {
   name: 'userList',
   setup() {
-    const instance = getCurrentInstance();
-    const $store = instance
-      ? instance.appContext.config.globalProperties.$store
-      : null;
-    const age = ref(18);
-    // const name = ref('');
-    const increate = function () {
-      age.value++;
-    };
-    onMounted(() => {
-      // console.log('onMounted');
+    const a = ref(0);
+    const b = ref(1);
+    watch(() => {
+      console.log('watch a+b', a.value + b.value);
     });
-    const name = computed(() => {
-      return $store ? $store.state.app.name : '';
+
+    watch(a, () => {
+      console.log('watch a', a.value + b.value);
     });
-    const change = function () {
-      $store.commit('app/change', 'aaa');
-    };
-    return { increate, age, name, change };
+
+    setTimeout(() => {
+      a.value++;
+    }, 1000);
+    setTimeout(() => {
+      b.value++;
+    }, 2000);
+    return {};
   }
 };
 </script>

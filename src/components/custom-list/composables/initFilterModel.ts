@@ -13,13 +13,15 @@ function initFilterModel(
   // 通过传递的filterModel合并配置
   const filterObj: FilterModel = Object.assign({}, filter);
   // 根据筛选字段完善筛选模型
-  formItems.forEach((item) => {
-    const { model } = item;
-    const exceptionType = ['button'];
-    if (!exceptionType.includes(item?.type as string)) {
-      filterObj[model] = undefined; // 默认为空
-    }
-  });
+  if (formItems && formItems.length) {
+    formItems.forEach((item) => {
+      const { model } = item;
+      const exceptionType = ['button'];
+      if (!exceptionType.includes(item?.type as string)) {
+        filterObj[model] = undefined; // 默认为空
+      }
+    });
+  }
   const filterModel = reactive(filterObj);
   // 将赋值后的filter Model 重置为init时刻的状态
   const resetForm = ((filterInit: FilterModel) => {

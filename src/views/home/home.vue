@@ -14,9 +14,7 @@
       <tagsNav />
       <el-main>
         <div class="content-wrapper">
-          <keep-alive :include="cacheList">
-            <router-view />
-          </keep-alive>
+          <router-view />
           <img
             v-if="isShowBg"
             class="bgWelcome"
@@ -56,12 +54,12 @@ export default defineComponent({
     });
     const list = tagNavList.value.length
       ? tagNavList.value
-          .filter((item: any) => !(item.meta && item.mate.notCache))
+          .filter((item: any) => !(item.meta && item.mate?.notCache))
           .map((item: any) => item.name)
       : [];
     // keep-alive
     const cacheList = ref(['commonRouterView', ...list]);
-    return { welcome, cacheList, tagNavList };
+    return { welcome, cacheList };
   },
   methods: {
     turnPage(name: string) {

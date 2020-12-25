@@ -11,10 +11,3 @@ declare module 'vue/types/vue' {
     $route: Route;
   }
 }
-
-// declare module 'vue-router' {
-//   import { RouteRecordRaw } from 'vue-router';
-//   interface RouteRecordRaw {
-//     sort?: number;
-//   }
-// }

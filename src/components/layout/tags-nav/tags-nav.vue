@@ -3,11 +3,13 @@
     <div class="scroll-outer">
       <div class="scrollBody">
         <el-tag
-          closable
+          :closable="item.name !== 'home'"
           v-for="(item, index) in tagNavList"
+          :effect="isCurrentTag(current, item) ? 'dark' : 'plain'"
           :key="index"
-          effect="plain"
           class="navTag"
+          @close="closeTag(item)"
+          @click="handleClick(item)"
         >
           {{ $t(item.title || '') }}
         </el-tag>
@@ -20,7 +22,10 @@ import { defineComponent, ref, computed, getCurrentInstance, watch } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import setTagNavList from './composables/setTagNavList';
+import isCurrentTag from './composables/isCurrentTag';
+import createTagOpreate from './composables/createTagOpreate';
 import { TagNav } from './tags-nav';
+
 export default defineComponent({
   name: 'tagsNav',
   setup() {
@@ -29,19 +34,30 @@ export default defineComponent({
     const navList: TagNav[] = [];
     const $store = useStore();
     const tagNavList = ref(navList);
+    const current = ref(''); // 当前路由name
     // 监听route变化
     watch(
-      () => route,
-      () => {
+      route,
+      (newRouter) => {
         // 回调函数
-        // tagNavList.value = setTagNavList(route, $store);
+        const { navList, currentName } = setTagNavList(newRouter, $store);
+        tagNavList.value = navList;
+        current.value = currentName as string;
       },
       {
         immediate: true,
         deep: true
       }
     );
-    return { tagBodyLeft, tagNavList };
+    const { closeTag, handleClick } = createTagOpreate();
+    return {
+      tagBodyLeft,
+      tagNavList,
+      isCurrentTag,
+      current,
+      closeTag,
+      handleClick
+    };
   }
 });
 </script>

@@ -11,7 +11,7 @@ function getVerifyRules(verify: any, label: string): void {
 function initFields(formItems: FormItem[], defaultSpan = 4) {
   const fields: Array<FormItem[]> = [];
   const spanNum = 24;
-  if (formItems.length) {
+  if (formItems && formItems.length) {
     let row: FormItem[] = [],
       span = 0;
     for (let i = 0; i < formItems.length; i++) {

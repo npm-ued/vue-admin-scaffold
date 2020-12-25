@@ -20,7 +20,7 @@ export default [
       {
         path: 'userInfo',
         name: 'userInfo',
-        meta: { title: 'UserList', icon: 'el-icon-s-grid' },
+        meta: { title: 'UserInfo', icon: 'el-icon-s-grid' },
         component: () => import('@/views/user/userInfo/userInfo.vue')
       }
     ]

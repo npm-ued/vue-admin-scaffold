@@ -28,7 +28,10 @@ function setTagNavList(
 ) {
   const tagNavList = store.state.app.tagNavList;
   const newList = getNewTagList(tagNavList, curentRoute);
-  return newList;
+  // 同步store存储
+  store.commit('app/setNavList', newList);
+  const { name } = curentRoute;
+  return { navList: newList, currentName: name };
 }
 
 export default setTagNavList;
