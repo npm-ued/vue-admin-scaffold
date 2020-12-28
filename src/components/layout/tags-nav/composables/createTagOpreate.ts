@@ -6,4 +6,7 @@ function closeTag(item: TagNav) {
 function handleClick(item: TagNav) {
   console.log('点击', item);
 }
-export { closeTag, handleClick };
+function createTagOpreate() {
+  return { closeTag, handleClick };
+}
+export default createTagOpreate;
