@@ -28,8 +28,18 @@ import { TagNav } from './tags-nav';
 
 export default defineComponent({
   name: 'tagsNav',
+  methods: {
+    // closeTag(item: any) {
+    //   console.log(item, 'method close');
+    // }
+  },
   setup() {
     const tagBodyLeft = ref(0);
+    // 获取router跳转对象
+    const instance = getCurrentInstance();
+    const router = instance
+      ? instance.appContext.config.globalProperties.$router
+      : null;
     const route: RouteLocationNormalizedLoaded = useRoute();
     const navList: TagNav[] = [];
     const $store = useStore();
@@ -49,7 +59,7 @@ export default defineComponent({
         deep: true
       }
     );
-    const { closeTag, handleClick } = createTagOpreate();
+    const { closeTag, handleClick } = createTagOpreate(router, $store);
     return {
       tagBodyLeft,
       tagNavList,
@@ -71,5 +81,6 @@ export default defineComponent({
 }
 .navTag {
   margin: 2px 4px 2px 0;
+  cursor: pointer;
 }
 </style>
