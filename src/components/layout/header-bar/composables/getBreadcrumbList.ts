@@ -1,33 +1,17 @@
 import { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router';
 import { Breadcrumb } from '../header-bar';
 import routeList from '../../../../router/modules';
+import HomeRoute from '../../../../router/modules/home';
 
 /**
  * 获取首页导航
  * @param routers 路由列表
  * @param homeName 首页路由名
  */
-function getHomeRoute(routers: RouteRecordRaw[], homeName: string): Breadcrumb {
-  homeName = homeName || 'home';
-  let home: Breadcrumb = { name: '', title: '' };
-  let i = -1;
-  // const routes: Array<RouteRecordRaw> = [...routeList];
-  const len = routers.length;
-  while (++i < len) {
-    const item = routers[i];
-    if (item.children && item.children.length) {
-      const res = getHomeRoute(item.children, homeName);
-      if (res.name) {
-        home = res;
-      }
-    } else {
-      if (item.name === homeName) {
-        const { name, path, meta } = item;
-        const title = meta?.title as string;
-        home = { name, path, icon: meta?.icon, title };
-      }
-    }
-  }
+function getHomeRoute(): Breadcrumb {
+  const { name, path, meta } = HomeRoute;
+  const title = meta?.title as string;
+  const home: Breadcrumb = { name, path, icon: meta?.icon, title };
   return home;
 }
 
@@ -41,7 +25,8 @@ function getBreadcrumbList(
 ): Breadcrumb[] {
   let list: Breadcrumb[] = [];
   // 获取首页的面包屑选项
-  const homeItem: Breadcrumb = getHomeRoute(routeList, 'home');
+  const homeItem: Breadcrumb = getHomeRoute();
+  // const homeItem: Breadcrumb = HomeRoute
   // 当前路由的匹配
   const { matched } = curentRoute;
   // console.log(matched.some((item) => item.name === homeItem.name));

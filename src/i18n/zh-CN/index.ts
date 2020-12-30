@@ -2,7 +2,7 @@
  * @Author: vue admin scaffold
  * @Date: 2020-12-12 21:23:35
  * @Last Modified by: vue admin scaffold
- * @Last Modified time: 2020-12-14 15:28:11
+ * @Last Modified time: 2020-12-30 14:47:40
  */
 import Common from './common';
 import Login from './login';
@@ -19,6 +19,20 @@ export default {
   UserSetting: '用户管理',
   RoleManager: '角色管理',
   PromissionManager: '权限管理',
+  QuickStart: '快速开始',
+  Installation: '安装',
+  FirstSetting: '首次设置',
+  Catalog: '目录结构',
+  Config: '配置',
+  StartConfig: '开始配置',
+  BizConfig: '业务配置',
+  BasisFun: '基础功能',
+  AddPage: '新增页面',
+  AddMenu: '新增菜单',
+  AddStyle: '新增样式',
+  AddGlobalStyle: '内置全局样式',
+  PostData: '请求数据',
+  MoreLan: '多语言',
   // 公共
   Common,
   // 登录

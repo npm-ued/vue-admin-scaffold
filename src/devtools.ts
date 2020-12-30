@@ -8,7 +8,7 @@ const devtools: Plugin = {
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app;
+      // window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app;
     }
   }
 };

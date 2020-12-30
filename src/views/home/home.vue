@@ -98,7 +98,7 @@ export default defineComponent({
 }
 .content-wrapper {
   background-color: #ffffff;
-  padding: 10px;
+  padding: 5px;
   box-sizing: border-box;
   min-height: 100%;
   position: relative;
