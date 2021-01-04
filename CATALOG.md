@@ -1,4 +1,8 @@
 ### 目录结构
+- __mocks__ 数据模拟
+- public 
+  - favicon.ico ico文件
+  - index.html html模板文件
 - src 源码
   - api 模块化API
   - assets 静态文件 
@@ -38,6 +42,7 @@
   - devtools.ts dev tool 调试
   - main.ts 入口文件
   - shims-vue.d.ts 全局声明文件
+- tests 测试目录
 - .browserslistrc 
 - .eslintignore eslint的忽略文件
 - .eslintrc.js eslint 的配置文件

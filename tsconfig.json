@@ -14,8 +14,8 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "@wdio/mocha-framework",
-      "@wdio/sync",
+      // "@wdio/mocha-framework",
+      // "@wdio/sync",
       "jest"
     ],
     "paths": {

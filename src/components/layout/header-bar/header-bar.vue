@@ -54,7 +54,7 @@ export default defineComponent({
 </script>
 <style>
 .collapseIcon {
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   transition: transform 0.3s, transform 0.3s;
 }
@@ -69,8 +69,8 @@ export default defineComponent({
 .el-header {
   background-color: #ffffff;
   color: #333;
-  line-height: 60px;
-  height: 60px;
+  line-height: 50px;
+  height: 50px !important;
 }
 .custom-bread-crumb .el-breadcrumb {
   line-height: inherit;

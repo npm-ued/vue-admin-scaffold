@@ -1,53 +1,80 @@
 <template>
   <div class="filterOutBox" v-if="fields.length">
-    <template v-for="(row, index) in fields" :key="index">
-      <el-row :gutter="10">
-        <el-col
-          v-for="(item, indexKey) in row"
-          :span="item.span"
-          :key="indexKey"
-        >
-          <div class="grid-content filterInputItem">
-            <!-- 文本输入框开始 -->
-            <el-input
-              v-if="item.type === 'input'"
-              v-model="filterModel[item.model]"
-              :placeholder="item.label"
-            />
-            <!-- 文本输入框结束 -->
-            <!-- 时间选择器开始 -->
-            <el-date-picker
-              v-if="item.type === 'date' || item.type === 'datetime'"
-              v-model="filterModel[item.model]"
-              :type="item.type"
-              :placeholder="item.label"
-              :shortcuts="item.shortcuts"
-            />
-            <!-- 时间选择器结束 -->
-            <!-- select选择开始 -->
-            <el-select
-              v-if="item.type === 'select'"
-              v-model="filterModel[item.model]"
-              clearable
-              :placeholder="item.label"
-            >
-              <el-option
-                v-for="itemOption in item.options"
-                :key="itemOption.value"
-                :label="itemOption.name"
-                :value="itemOption.value"
-                :disabled="itemOption.disabled"
+    <el-row :gutter="10">
+      <template v-for="(row, index) in fields" :key="index">
+        <template v-for="(item, indexKey) in row" :key="indexKey">
+          <el-col
+            :span="item.span"
+            v-if="
+              item.type != 'button' &&
+              (filterExpandStatus ||
+                (item.span * (indexKey + 1) < 24 && index < 1))
+            "
+          >
+            <div class="grid-content filterInputItem">
+              <!-- 文本输入框开始 -->
+              <el-input
+                v-if="item.type === 'input'"
+                v-model="filterModel[item.model]"
+                :placeholder="item.label"
+              />
+              <!-- 文本输入框结束 -->
+              <!-- 时间选择器开始 -->
+              <el-date-picker
+                v-if="item.type === 'date' || item.type === 'datetime'"
+                v-model="filterModel[item.model]"
+                :type="item.type"
+                :placeholder="item.label"
+                :shortcuts="item.shortcuts"
+              />
+              <!-- 时间选择器结束 -->
+              <!-- select选择开始 -->
+              <el-select
+                v-if="item.type === 'select'"
+                v-model="filterModel[item.model]"
+                clearable
+                :placeholder="item.label"
               >
-              </el-option>
-            </el-select>
-            <!-- select选择结束 -->
+                <el-option
+                  v-for="itemOption in item.options"
+                  :key="itemOption.value"
+                  :label="itemOption.name"
+                  :value="itemOption.value"
+                  :disabled="itemOption.disabled"
+                >
+                </el-option>
+              </el-select>
+              <!-- select选择结束 -->
+            </div>
+          </el-col>
+          <el-col
+            v-if="item.type === 'button'"
+            :span="filterExpandStatus ? item.span : defaultSpan"
+          >
             <!-- 按钮开始 -->
-            <div class="fliterRight" v-if="item.type === 'button'">
+            <div class="fliterRight">
               <!-- 重置按钮 -->
               <el-button @click="resetForm">{{ $t('Common.Reset') }}</el-button>
               <el-button @click="query" type="primary">
                 {{ $t('Common.Inquire') }}
               </el-button>
+              <el-link
+                class="filterStatusLink"
+                type="primary"
+                @click="changeStatus"
+                href="javascript:void(0)"
+              >
+                {{
+                  filterExpandStatus
+                    ? $t('Common.Collapse')
+                    : $t('Common.Expand')
+                }}
+                <i
+                  v-if="filterExpandStatus"
+                  class="el-icon--right el-icon-arrow-up"
+                ></i>
+                <i v-else class="el-icon--right el-icon-arrow-down"></i>
+              </el-link>
               <!-- 其他按钮 -->
               <template>
                 <el-button
@@ -60,10 +87,10 @@
               </template>
             </div>
             <!-- 按钮结束 -->
-          </div>
-        </el-col>
-      </el-row>
-    </template>
+          </el-col>
+        </template>
+      </template>
+    </el-row>
   </div>
 </template>
 <script lang="ts">
@@ -114,12 +141,13 @@ export default defineComponent({
   },
   setup(props) {
     const { filter } = toRefs(props);
+    console.log(filter);
     const filterModel = filter;
-    const buttonStatus = ref(false); // 按钮切换
+    const filterExpandStatus = ref(false); // 按钮切换
     const changeStatus = () => {
-      buttonStatus.value = !buttonStatus.value;
+      filterExpandStatus.value = !filterExpandStatus.value;
     };
-    return { changeStatus, filterModel };
+    return { changeStatus, filterModel, filterExpandStatus };
   }
 });
 </script>
@@ -178,5 +206,9 @@ export default defineComponent({
 }
 .fullWidth {
   width: 100%;
+}
+.filterStatusLink {
+  display: inline-block;
+  margin: 0 10px;
 }
 </style>

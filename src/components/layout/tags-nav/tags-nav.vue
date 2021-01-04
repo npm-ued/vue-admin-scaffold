@@ -1,7 +1,7 @@
 <template>
   <div class="tagNavWrapper">
-    <div class="scrollOuter">
-      <div class="scrollBody" ref="tagWrap">
+    <div class="scrollOuter" ref="tagWrap">
+      <div class="scrollBody">
         <label
           v-for="(item, index) in tagNavList"
           :key="index"
@@ -21,15 +21,6 @@
       </div>
     </div>
   </div>
-  <!-- <el-tabs type="card" closable @tab-remove="removeTab">
-    <el-tab-pane
-      v-for="(item, index) in tagNavList"
-      :key="index"
-      :label="$t(item.title || '')"
-      :name="item.name"
-    >
-    </el-tab-pane>
-  </el-tabs> -->
 </template>
 <script lang="ts">
 import {
@@ -38,7 +29,6 @@ import {
   computed,
   getCurrentInstance,
   watch,
-  onMounted,
   nextTick
 } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
@@ -74,10 +64,8 @@ export default defineComponent({
       targetRef.value = el;
       nextTick(() => {
         const targetOffsetLeft = el?.offsetLeft;
-        console.log(targetOffsetLeft);
         const wrap = tagWrap.value as HTMLElement;
-        console.dir(wrap);
-        wrap.scrollLeft = 100;
+        wrap.scrollLeft = targetOffsetLeft;
       });
     };
     // 监听route变化
@@ -111,12 +99,11 @@ export default defineComponent({
 <style scoped>
 .tagNavWrapper {
   background-color: #f0f0f0;
-  overflow: hidden;
-  overflow-x: auto;
 }
 .scrollOuter {
   height: 37px;
   padding: 1px 4px 0;
+  overflow-x: auto;
 }
 .scrollBody {
   white-space: nowrap;

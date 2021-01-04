@@ -2,7 +2,7 @@
  * @Author: vue admin scaffold
  * @Date: 2020-12-12 21:19:31
  * @Last Modified by: vue admin scaffold
- * @Last Modified time: 2020-12-12 21:19:53
+ * @Last Modified time: 2021-01-04 14:50:20
  */
 
 export default {
@@ -28,7 +28,7 @@ export default {
   All: '全部',
   Export: '导出',
   Collapse: '收起',
-  Expand: '筛选',
+  Expand: '展开',
   Upload: '上传',
   Formart: '格式',
   As: '如',

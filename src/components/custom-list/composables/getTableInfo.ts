@@ -28,7 +28,6 @@ function getTableData() {
       pageNum: 1
     };
     const dataConfig = Object.assign(page, data);
-    console.log(dataConfig);
     const loginApi: LoginApi = $ajax.login;
     tableLoading.value = true;
     loginApi.userList({
