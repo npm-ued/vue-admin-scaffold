@@ -141,7 +141,6 @@ export default defineComponent({
   },
   setup(props) {
     const { filter } = toRefs(props);
-    console.log(filter);
     const filterModel = filter;
     const filterExpandStatus = ref(false); // 按钮切换
     const changeStatus = () => {

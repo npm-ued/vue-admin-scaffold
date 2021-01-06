@@ -36,16 +36,9 @@ import { useStore } from 'vuex';
 import setTagNavList from './composables/setTagNavList';
 import isCurrentTag from './composables/isCurrentTag';
 import createTagOpreate from './composables/createTagOpreate';
-import { TagNav } from './tags-nav';
-import computeScroll from './composables/computeScroll';
 
 export default defineComponent({
   name: 'tagsNav',
-  methods: {
-    // closeTag(item: any) {
-    //   console.log(item, 'method close');
-    // }
-  },
   setup() {
     const tagBodyLeft = ref(0);
     // 获取router跳转对象

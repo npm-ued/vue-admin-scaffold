@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import CommonView from '@/components/layout/common-view/common-view.vue';
 
 describe('AsideMenu.vue', () => {

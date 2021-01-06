@@ -13,9 +13,7 @@ function getTableData() {
   const tableLoading = ref(false);
   // 获取vue对象
   const instance = getCurrentInstance();
-  const $ajax = instance
-    ? instance.appContext.config.globalProperties.$ajax
-    : null;
+  const $ajax = instance?.appContext.config.globalProperties.$ajax;
   /**
    * 加载数据
    * @param pageNum 当前页码

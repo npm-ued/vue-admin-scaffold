@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import HeaderBar from '@/components/layout/header-bar/header-bar.vue';
 
 describe('AsideMenu.vue', () => {

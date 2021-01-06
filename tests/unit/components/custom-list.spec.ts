@@ -1,13 +1,22 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { initPageWithGlobal } from '../main';
 import CustomList from '@/components/custom-list/custom-list.vue';
-import localeVue from '../main';
-
+jest.mock('axios');
 describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = mount(CustomList, {
-      props: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
+  it('smoke test customlist component', () => {
+    const wrapper = initPageWithGlobal(CustomList);
+    expect(wrapper.exists()).toBe(true);
+    wrapper.unmount();
   });
+
+  it('smoke test customlist filter', () => {
+    const wrapper = initPageWithGlobal(CustomList);
+    expect(wrapper.exists()).toBe(true);
+    wrapper.unmount();
+  });
+  // it('test change page', () => {
+  //   const wrapper = initPageWithGlobal(CustomList);
+  //   const nextPageEle = wrapper.find('.el-icon.el-icon-arrow-right');
+  //   expect(nextPageEle.exists()).toBe(true);
+  //   wrapper.unmount();
+  // });
 });

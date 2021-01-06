@@ -1,12 +1,10 @@
-import { shallowMount, mount } from '@vue/test-utils';
 import CustomCard from '@/components/custom-card/custom-card.vue';
+import { initPageWithGlobal } from '../main';
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = mount(CustomCard, {
-      props: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
+describe('components/custom-card/custom-card.vue', () => {
+  it('smoke test custom card component', () => {
+    const wrapper = initPageWithGlobal(CustomCard);
+    expect(wrapper.exists()).toBe(true);
+    wrapper.unmount();
   });
 });

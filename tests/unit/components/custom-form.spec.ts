@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import CustomForm from '@/components/custom-form/custom-form.vue';
 
 describe('HelloWorld.vue', () => {

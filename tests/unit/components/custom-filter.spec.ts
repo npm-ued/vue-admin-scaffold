@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import ListFilter from '@/components/list-filter/list-filter.vue';
 
 describe('HelloWorld.vue', () => {

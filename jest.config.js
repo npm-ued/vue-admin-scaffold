@@ -16,8 +16,10 @@ module.exports = {
     '!**src/main.ts**',
     '!**src/devtools.ts**',
     '!**src/shims-vue.d.ts**',
-    '!**src/router/**',
-    '!**src/config/**',
-    '!**src/assets/libs/**'
+    '!**src/router/**', // router
+    '!**src/config/**', // 配置
+    '!**src/assets/libs/**', // lib 库
+    '!**src/plugins/**', // 插件初始化
+    '!**src/api/**' // api
   ]
 };
