@@ -10,15 +10,12 @@ import customList from '@/components/custom-list/custom-list.vue';
 import { defineComponent, ref } from 'vue';
 import getUsers from './composables/getUsers';
 import getColumns from './composables/getColumns';
-import data from './composables/data';
 
 export default defineComponent({
   components: { customList },
   name: 'userSetting',
   setup(props) {
-    const list = getUsers();
     const columns = getColumns();
-    const tableData = data;
     const formItemArr = [
       // 用户名称
       {
@@ -96,7 +93,7 @@ export default defineComponent({
         span: 12
       }
     ];
-    return { list, columns, tableData, formItemArr };
+    return { columns, formItemArr };
   }
 });
 </script>

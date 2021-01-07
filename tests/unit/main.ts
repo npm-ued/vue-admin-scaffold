@@ -1,6 +1,7 @@
 import i18n from '@/i18n';
 import store from '@/store';
 import router from '@/router';
+// import mockAxios from './mock/axios';
 import globalComponents from '@/components';
 import ElementPlus from 'element-plus';
 import zhcn from 'element-plus/lib/locale/lang/zh-cn';
@@ -11,7 +12,7 @@ import api from '@/api';
  * @param component 组件引用
  * @param props props属性
  */
-export function initPageWithGlobal(component: any, props: any) {
+export function initPageWithGlobal(component: any, props?: any) {
   const wrapper = mount(component, {
     props,
     global: {
