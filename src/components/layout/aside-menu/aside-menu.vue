@@ -71,7 +71,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, watch, ref } from 'vue';
-import { useRoute, RouteLocationNormalizedLoaded } from 'vue-router';
+import { useRoute, RouteLocationNormalizedLoaded, useRouter } from 'vue-router';
 import routers from '../../../router/modules'; // 获取路由配置
 import menuListByRoutes from './composables/menuListByRoutes';
 import { asideMenu } from '../../../assets/config/theme';
@@ -95,20 +95,12 @@ export default defineComponent({
     },
     accordion: Boolean
   },
-  methods: {
-    turnPage(name: string) {
-      this.$router.push({ name });
-    },
-    gotoContent(e: Event) {
-      e.preventDefault();
-    }
-  },
   setup() {
     const route: RouteLocationNormalizedLoaded = useRoute();
     const menuActive = ref(getActiveAndOpenName(route));
     // 监听route变化
     watch(
-      () => route,
+      route,
       () => {
         // 回调函数
         menuActive.value = getActiveAndOpenName(route);
@@ -119,7 +111,11 @@ export default defineComponent({
       }
     );
     const menuList = menuListByRoutes(routers, ['borrower_user_list']);
-    return { menuList, asideMenu, menuActive };
+    const router = useRouter();
+    const turnPage = (name: string) => {
+      router.push({ name });
+    };
+    return { menuList, asideMenu, menuActive, turnPage };
   }
 });
 </script>

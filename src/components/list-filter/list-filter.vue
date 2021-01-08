@@ -95,7 +95,6 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, toRefs } from 'vue';
-import { ListFilterProps } from './list-filter';
 interface FilterModel {
   [propName: string]: any;
 }
@@ -133,11 +132,6 @@ export default defineComponent({
     return {
       value1: ''
     };
-  },
-  methods: {
-    save() {
-      console.log(this.filterModel);
-    }
   },
   setup(props) {
     const { filter } = toRefs(props);

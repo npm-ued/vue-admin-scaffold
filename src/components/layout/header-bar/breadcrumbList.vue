@@ -24,8 +24,8 @@
   </div>
 </template>
 <script lang="ts">
-import { Breadcrumb } from './header-bar';
-import { defineComponent, ref, getCurrentInstance, watch } from 'vue';
+import { defineComponent, getCurrentInstance } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'breadcrumb',
@@ -49,10 +49,7 @@ export default defineComponent({
   },
   setup() {
     // 获取router跳转对象
-    const instance = getCurrentInstance();
-    const router = instance
-      ? instance.appContext.config.globalProperties.$router
-      : null;
+    const router = useRouter();
     const turnPage = (path: string): void => {
       if (path && router) {
         router.push({ path });

@@ -6,7 +6,6 @@ const server = axios.create({
   baseURL: HOST, // 域名地址
   timeout: 5000
 });
-console.log('axios 调用了一次', server);
 // server.defaults.headers.post['Content-Type'] =
 //   'application/x-www-form-urlencoded';
 

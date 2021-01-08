@@ -36,13 +36,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import ListFilter from '../list-filter';
 import getTableData from './composables/getTableInfo';
 import getPage from './composables/getPage';
 import initFields from './composables/initFields';
 import initFilterModel from './composables/initFilterModel';
 import { FormItem, FilterModel } from './custom-list';
+import { mount } from '@vue/test-utils';
 
 export default defineComponent({
   name: 'customList',
@@ -102,6 +103,7 @@ export default defineComponent({
       filter,
       loadData
     );
+    console.log('特踏踏实实', fields, filterModel);
     const {
       currentPage,
       pageSize,
@@ -109,7 +111,8 @@ export default defineComponent({
       changePage,
       changeSize
     } = getPage(loadData, filterModel);
-
+    // on mounted call
+    onMounted(loadData);
     return {
       fColumns,
       totalCount,

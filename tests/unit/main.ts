@@ -7,12 +7,19 @@ import ElementPlus from 'element-plus';
 import zhcn from 'element-plus/lib/locale/lang/zh-cn';
 import { mount } from '@vue/test-utils';
 import api from '@/api';
+// mock api
+jest.mock('@/api');
+
+interface InitParams {
+  props?: any;
+}
 /**
  * 根据gobal生成单测实例
  * @param component 组件引用
  * @param props props属性
  */
-export function initPageWithGlobal(component: any, props?: any) {
+export function initPageWithGlobal(component: any, params: InitParams = {}) {
+  const { props } = params;
   const wrapper = mount(component, {
     props,
     global: {

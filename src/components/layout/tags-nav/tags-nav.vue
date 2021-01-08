@@ -23,16 +23,10 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  computed,
-  getCurrentInstance,
-  watch,
-  nextTick
-} from 'vue';
+import { defineComponent, ref, computed, watch, nextTick } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import { key } from '@/store';
 import setTagNavList from './composables/setTagNavList';
 import isCurrentTag from './composables/isCurrentTag';
 import createTagOpreate from './composables/createTagOpreate';
@@ -41,14 +35,9 @@ export default defineComponent({
   name: 'tagsNav',
   setup() {
     const tagBodyLeft = ref(0);
-    // 获取router跳转对象
-    const instance = getCurrentInstance();
-    const router = instance
-      ? instance.appContext.config.globalProperties.$router
-      : null;
     const route: RouteLocationNormalizedLoaded = useRoute();
-    const $store = useStore();
-    const tagNavList = computed(() => $store.state.app.tagNavList);
+    const store = useStore(key);
+    const tagNavList = computed(() => store.state.app.tagNavList);
     const current = ref(''); // 当前路由name
     const tagWrap = ref<any>(null);
     const targetRef = ref<any>(null);
@@ -66,7 +55,7 @@ export default defineComponent({
       route,
       (newRouter) => {
         // 回调函数
-        const { currentName } = setTagNavList(newRouter, $store);
+        const { currentName } = setTagNavList(newRouter);
         current.value = currentName as string;
       },
       {
@@ -74,7 +63,7 @@ export default defineComponent({
         deep: true
       }
     );
-    const { closeTag, handleClick } = createTagOpreate(router, route, $store);
+    const { closeTag, handleClick } = createTagOpreate();
 
     return {
       tagBodyLeft,

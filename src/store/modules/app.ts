@@ -1,13 +1,9 @@
 export default {
   namespaced: true,
   state: {
-    name: '111',
     tagNavList: [] // 标签页
   },
   mutations: {
-    change(state: any, str: string) {
-      state.name = Math.random();
-    },
     /**
      * 设置navlist
      * @param state 状态

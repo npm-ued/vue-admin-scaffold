@@ -1,9 +1,7 @@
-import { RenderFunction, ref, onMounted } from 'vue';
 import { LoginApi } from '@/api/login';
-import { useRouter } from 'vue-router';
 
 // type ReturnType = RenderFunction | void;
-export default function getUserInfoList(ajax: any): any {
+export default function getUserList(ajax: any): any {
   const getUserInfo = function () {
     const loginApi: LoginApi = ajax.login;
     loginApi.userInfo({
@@ -17,8 +15,5 @@ export default function getUserInfoList(ajax: any): any {
       }
     });
   };
-  // mounted时期执行
-  // onMounted(getUserInfo);
-
   return { getUserInfo };
 }

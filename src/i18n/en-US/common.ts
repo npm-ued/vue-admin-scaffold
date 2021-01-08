@@ -1,8 +1,8 @@
 /*
  * @Author: vue admin scaffold
  * @Date: 2020-12-12 21:19:31
- * @Last Modified by: vue admin scaffold
- * @Last Modified time: 2020-12-12 21:26:29
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-01-08 11:53:35
  */
 
 export default {
@@ -27,7 +27,7 @@ export default {
   All: 'All',
   Export: 'Export',
   Collapse: 'Collapse',
-  Expand: 'Filter',
+  Expand: 'Expand',
   Upload: 'Upload',
   Formart: 'Formart',
   As: 'as ',

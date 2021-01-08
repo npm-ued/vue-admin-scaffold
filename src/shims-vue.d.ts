@@ -11,3 +11,11 @@ declare module 'vue/types/vue' {
     $route: Route;
   }
 }
+
+declare const enum FilterType {
+  input = 'input',
+  select = 'select',
+  date = 'date',
+  datetime = 'datetime',
+  button = 'button'
+}

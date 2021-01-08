@@ -27,17 +27,19 @@
   </el-container>
 </template>
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import AsideMenu from '../../components/layout/aside-menu';
 import HeaderBar from '../../components/layout/header-bar';
 import TagsNav from '../../components/layout/tags-nav';
+import isHomePage from './composables/isHome';
+import getCacheList from './composables/getCacheList';
 
 export default defineComponent({
   name: 'home',
   data() {
     return {
-      isShowBg: true,
       collapsed: false, // 是否缩略模式
       minLogo: require('../../assets/image/index_title.png'), // 小lOGO
       maxLogo: require('../../assets/image/index_title.png') // 大 logo
@@ -46,40 +48,18 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const welcome = t('Common.Welcome'); // 获取welcome的国际化值
-    const instance = getCurrentInstance();
-    const $store = instance?.appContext.config.globalProperties.$store;
-    // 获取tag-navs
-    const tagNavList = computed(() => {
-      return $store.state.app.tagNavList;
-    });
-    const list = tagNavList.value.length
-      ? tagNavList.value
-          .filter((item: any) => !(item.meta && item.mate?.notCache))
-          .map((item: any) => item.name)
-      : [];
-    // keep-alive
-    const cacheList = ref(['commonRouterView', ...list]);
-    return { welcome, cacheList };
+    const { isShowBg } = isHomePage();
+    const { cacheList } = getCacheList();
+    const router = useRouter();
+    const turnPage = (name: string) => {
+      router.push({ name });
+    };
+    return { welcome, cacheList, isShowBg, turnPage };
   },
   methods: {
-    turnPage(name: string) {
-      this.$router.push({ name });
-    },
-    gotoContent(e: Event) {
-      e.preventDefault();
-    },
     handleCollapsedChange(state: boolean) {
       this.collapsed = state;
     }
-  },
-  watch: {
-    $route(newRoute) {
-      // 面包屑设置
-      this.isShowBg = newRoute.name === 'home';
-    }
-  },
-  mounted() {
-    this.isShowBg = this.$route.name === 'home';
   },
   components: {
     AsideMenu,

@@ -1,7 +1,12 @@
 import { ref } from 'vue';
 import { FormItem } from '../custom-list';
-function getVerifyRules(verify: any, label: string): void {
-  console.log('getVerifyRules');
+
+export enum FilterType {
+  input = 'input',
+  select = 'select',
+  date = 'date',
+  datetime = 'datetime',
+  button = 'button'
 }
 /**
  * 初始化字段值
@@ -16,7 +21,7 @@ function initFields(formItems: FormItem[], defaultSpan = 4) {
       span = 0;
     for (let i = 0; i < formItems.length; i++) {
       const config = {
-        type: 'input', // 默认类型
+        type: FilterType.input, // 默认类型
         span: defaultSpan, // 补全span
         isShow: true // 补全isShow 属性
       };

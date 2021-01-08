@@ -29,13 +29,13 @@ export default defineComponent({
       this.$emit('on-change', this.collapsed);
     }
   },
-  setup(props, context) {
+  setup() {
     // 监听路由发生变化，显示面包屑
     const route: RouteLocationNormalizedLoaded = useRoute();
     const list = ref(getBreadcrumbList(route));
     // TODO runtime-core.esm-bundler.js?5c40:38 [Vue warn]: Avoid app logic that relies on enumerating keys on a component instance. The keys will be empty in production mode to avoid performance overhead
     watch(
-      () => route,
+      route,
       () => {
         // 回调函数
         list.value = getBreadcrumbList(route);

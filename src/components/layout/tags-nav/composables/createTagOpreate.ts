@@ -1,7 +1,7 @@
-import { Store } from 'vuex';
+import { Store, useStore } from 'vuex';
 import { TagNav } from '../tags-nav';
 import HomeRoute from '../../../../router/modules/home';
-import { RouteLocationNormalizedLoaded } from 'vue-router';
+import { RouteLocationNormalizedLoaded, useRoute, useRouter } from 'vue-router';
 
 /**
  * 判断两个router是否相等(目前name是唯一值)
@@ -64,11 +64,10 @@ function closeNormal(
   }
 }
 
-function createTagOpreate(
-  router: any,
-  route: RouteLocationNormalizedLoaded,
-  store: Store<any>
-) {
+function createTagOpreate() {
+  const router = useRouter();
+  const store = useStore();
+  const route = useRoute();
   const closeTag = (item: TagNav, type = 'normal') => {
     const navList = store.state.app.tagNavList; // 获取tagNavList
     switch (type) {

@@ -1,5 +1,5 @@
 import CustomCard from '@/components/custom-card/custom-card.vue';
-import { initPageWithGlobal } from '../main';
+import { initPageWithGlobal } from '../../main';
 
 describe('components/custom-card/custom-card.vue', () => {
   it('smoke test custom card component', () => {

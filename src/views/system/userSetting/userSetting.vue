@@ -7,14 +7,13 @@
 </template>
 <script lang="ts">
 import customList from '@/components/custom-list/custom-list.vue';
-import { defineComponent, ref } from 'vue';
-import getUsers from './composables/getUsers';
+import { defineComponent } from 'vue';
 import getColumns from './composables/getColumns';
 
 export default defineComponent({
   components: { customList },
   name: 'userSetting',
-  setup(props) {
+  setup() {
     const columns = getColumns();
     const formItemArr = [
       // 用户名称

@@ -45,8 +45,6 @@ function getTableData() {
       }
     });
   };
-  // 初始化获取一次
-  loadData();
   return { dataArr, totalCount, tableLoading, currentPage, loadData };
 }
 
