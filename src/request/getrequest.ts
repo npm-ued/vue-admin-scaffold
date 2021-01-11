@@ -62,7 +62,7 @@ class MyServer {
     name: string,
     ajax: AjaxObj,
     config: ServerConfig
-  ): void {
+  ): Promise<any> {
     const configs = config || {};
     // 请求类型
     const type = configs.type || ajax.method || 'get';
@@ -110,30 +110,27 @@ class MyServer {
     const state: State = {
       // get 方法
       get: function () {
-        self.server
-          .get(ajax.url, { params: data })
-          .then(before)
-          .then(callback)
-          .catch(errorback);
+        const getResult = self.server.get(ajax.url, { params: data });
+        getResult.then(before).then(callback).catch(errorback);
+        return getResult;
       },
       // post 方法
       post: function () {
-        self.server
-          .post(ajax.url, data)
-          .then(before)
-          .then(callback)
-          .catch(errorback);
+        const postResult = self.server.post(ajax.url, data);
+        postResult.then(before).then(callback).catch(errorback);
+        return postResult;
       }
     };
     // 如果是异步
     if (isAsync) {
-      state[type]();
+      return state[type]();
     } else {
       // 防止重复请求
       if (self[moduleName][bindName].state == 'ready') {
         self[moduleName][bindName].state = 'pending';
-        state[type]();
+        return state[type]();
       }
+      return Promise.resolve({});
     }
   }
   [key: string]: any;

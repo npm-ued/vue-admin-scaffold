@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed, watch, nextTick } from 'vue';
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+import { RouteLocationNormalizedLoaded, useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { key } from '@/store';
 import setTagNavList from './composables/setTagNavList';
@@ -36,6 +36,7 @@ export default defineComponent({
   setup() {
     const tagBodyLeft = ref(0);
     const route: RouteLocationNormalizedLoaded = useRoute();
+    const router = useRouter();
     const store = useStore(key);
     const tagNavList = computed(() => store.state.app.tagNavList);
     const current = ref(''); // 当前路由name
@@ -55,7 +56,7 @@ export default defineComponent({
       route,
       (newRouter) => {
         // 回调函数
-        const { currentName } = setTagNavList(newRouter);
+        const { currentName } = setTagNavList(store, newRouter);
         current.value = currentName as string;
       },
       {
@@ -63,7 +64,7 @@ export default defineComponent({
         deep: true
       }
     );
-    const { closeTag, handleClick } = createTagOpreate();
+    const { closeTag, handleClick } = createTagOpreate(store, route, router);
 
     return {
       tagBodyLeft,

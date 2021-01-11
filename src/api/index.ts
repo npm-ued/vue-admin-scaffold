@@ -17,7 +17,7 @@ interface Module {
   [moduleName: string]: {};
 }
 export interface AjaxMethod {
-  (ajaxConfig: AjaxsRequestConfig): void;
+  (ajaxConfig: AjaxsRequestConfig): Promise<any>;
 }
 
 interface AjaxsRequestConfig {

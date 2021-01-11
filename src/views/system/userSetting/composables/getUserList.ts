@@ -1,19 +1,21 @@
-import { LoginApi } from '@/api/login';
+import { UserApi } from '@/api/user';
 
 // type ReturnType = RenderFunction | void;
-export default function getUserList(ajax: any): any {
-  const getUserInfo = function () {
-    const loginApi: LoginApi = ajax.login;
-    loginApi.userInfo({
-      success: function (res: any, d: any) {
-        const res1 = res.data;
-        const list = d(res1);
-        console.log(d(res1));
+export default function getUserList(ajax: any) {
+  const query = (dataConfig: any) => {
+    const { data, complete } = dataConfig;
+    const config = {
+      data
+    };
+    const userApi: UserApi = ajax.user;
+    userApi.userList(config).then(
+      (res) => {
+        complete(res);
       },
-      error: function (error: any) {
-        console.log(error);
+      () => {
+        complete(undefined, 'error');
       }
-    });
+    );
   };
-  return { getUserInfo };
+  return { query };
 }

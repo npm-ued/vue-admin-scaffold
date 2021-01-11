@@ -27,7 +27,7 @@
   </el-container>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import AsideMenu from '../../components/layout/aside-menu';
@@ -40,12 +40,12 @@ export default defineComponent({
   name: 'home',
   data() {
     return {
-      collapsed: false, // 是否缩略模式
       minLogo: require('../../assets/image/index_title.png'), // 小lOGO
       maxLogo: require('../../assets/image/index_title.png') // 大 logo
     };
   },
   setup() {
+    const collapsed = ref(false); // 是否缩略模式
     const { t } = useI18n();
     const welcome = t('Common.Welcome'); // 获取welcome的国际化值
     const { isShowBg } = isHomePage();
@@ -54,12 +54,17 @@ export default defineComponent({
     const turnPage = (name: string) => {
       router.push({ name });
     };
-    return { welcome, cacheList, isShowBg, turnPage };
-  },
-  methods: {
-    handleCollapsedChange(state: boolean) {
-      this.collapsed = state;
-    }
+    const handleCollapsedChange = (state: boolean) => {
+      collapsed.value = state;
+    };
+    return {
+      welcome,
+      cacheList,
+      isShowBg,
+      turnPage,
+      collapsed,
+      handleCollapsedChange
+    };
   },
   components: {
     AsideMenu,

@@ -1,14 +1,11 @@
 <template>
-  <custom-list
-    :columns="columns"
-    :dataList="tableData"
-    :filterItems="formItemArr"
-  />
+  <custom-list :columns="columns" :filterItems="formItemArr" @query="query" />
 </template>
 <script lang="ts">
 import customList from '@/components/custom-list/custom-list.vue';
-import { defineComponent } from 'vue';
+import { defineComponent, getCurrentInstance } from 'vue';
 import getColumns from './composables/getColumns';
+import getUserList from './composables/getUserList';
 
 export default defineComponent({
   components: { customList },
@@ -92,7 +89,11 @@ export default defineComponent({
         span: 12
       }
     ];
-    return { columns, formItemArr };
+    // 获取vue对象
+    const instance = getCurrentInstance();
+    const $ajax = instance?.appContext.config.globalProperties.$ajax;
+    const { query } = getUserList($ajax);
+    return { columns, formItemArr, query };
   }
 });
 </script>

@@ -14,8 +14,8 @@ export default defineComponent({
       const list = $store.state.app.tagNavList;
       return list.length
         ? list
-            .filter((item) => !(item.meta && item.mate.notCache))
-            .map((item) => item.name)
+            .filter((item: any) => !(item.meta && item.mate.notCache))
+            .map((item: any) => item.name)
         : [];
     });
     return { cacheList };

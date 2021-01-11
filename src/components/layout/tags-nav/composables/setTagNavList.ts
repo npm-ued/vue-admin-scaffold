@@ -1,7 +1,5 @@
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { TagNav } from '../tags-nav';
-import { useStore } from 'vuex';
-import { key } from '@/store';
 import HomeRoute from '../../../../router/modules/home';
 
 function getNewTagList(
@@ -41,8 +39,7 @@ function getNewTagList(
   return newList;
 }
 
-function setTagNavList(curentRoute: RouteLocationNormalizedLoaded) {
-  const store = useStore(key);
+function setTagNavList(store: any, curentRoute: RouteLocationNormalizedLoaded) {
   const tagNavList = store.state.app.tagNavList;
   const newList = getNewTagList(tagNavList, curentRoute);
   // 同步store存储

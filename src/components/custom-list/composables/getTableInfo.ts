@@ -1,19 +1,15 @@
-import { LoginApi } from '@/api/login';
-import { getCurrentInstance, ref } from 'vue';
+import { ref } from 'vue';
 interface DataItem {
   pageSize: number;
   pageNum: number;
   [propName: string]: any;
 }
 
-function getTableData() {
+function getTableData(emit: any) {
   const dataArr = ref<any>([]);
   const currentPage = ref(1);
   const totalCount = ref(0);
   const tableLoading = ref(false);
-  // 获取vue对象
-  const instance = getCurrentInstance();
-  const $ajax = instance?.appContext.config.globalProperties.$ajax;
   /**
    * 加载数据
    * @param pageNum 当前页码
@@ -26,24 +22,21 @@ function getTableData() {
       pageNum: 1
     };
     const dataConfig = Object.assign(page, data);
-    const loginApi: LoginApi = $ajax.login;
     tableLoading.value = true;
-    loginApi.userList({
-      data: dataConfig,
-      success: function (res: any, d: any) {
-        const res1 = res.data;
-        const list1 = d(res1);
-        const { data } = res1;
-        const { list, total } = data;
-        dataArr.value = list;
-        totalCount.value = total;
+    const listDataConfig = {
+      data: dataConfig, // 请求参数
+      // 完成回调
+      complete(res: any, type = 'success') {
+        const { data } = res;
+        const { list, total } = data.data;
         tableLoading.value = false;
-      },
-      error: function (error: any) {
-        tableLoading.value = false;
-        console.log(error);
+        if (type == 'success') {
+          dataArr.value = list;
+          totalCount.value = total;
+        }
       }
-    });
+    };
+    emit('query', listDataConfig);
   };
   return { dataArr, totalCount, tableLoading, currentPage, loadData };
 }

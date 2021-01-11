@@ -61,7 +61,7 @@ import { useRouter } from 'vue-router';
 import { changeLanguage } from '../../i18n';
 export default defineComponent({
   name: 'login',
-  setup(props) {
+  setup() {
     const router = useRouter();
     const login = function () {
       router.push({ path: '/' });

@@ -56,6 +56,7 @@ export default defineComponent({
       selectRow: null // 当前选择行
     };
   },
+  emits: ['query'],
   props: {
     // 列配置
     columns: {
@@ -92,18 +93,17 @@ export default defineComponent({
       }
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const fColumns: any = ref(props.columns); // 初始化列的配置参数
     const filterItems = props.filterItems as Array<FormItem>;
     const filter = props.filter as FilterModel;
     const { fields } = initFields(filterItems);
-    const { dataArr, totalCount, tableLoading, loadData } = getTableData();
+    const { dataArr, totalCount, tableLoading, loadData } = getTableData(emit);
     const { filterModel, resetForm, query } = initFilterModel(
       filterItems,
       filter,
       loadData
     );
-    console.log('特踏踏实实', fields, filterModel);
     const {
       currentPage,
       pageSize,

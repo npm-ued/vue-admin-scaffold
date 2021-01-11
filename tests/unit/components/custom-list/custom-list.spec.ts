@@ -1,7 +1,6 @@
 import { initPageWithGlobal } from '../../main';
 import CustomList from '@/components/custom-list/custom-list.vue';
 import { VueWrapper } from '@vue/test-utils';
-import api from '@/api';
 
 describe('components/custom-list/custom-list.vue', () => {
   let wrapper: VueWrapper<any>;
@@ -77,23 +76,7 @@ describe('components/custom-list/custom-list.vue', () => {
     expect(filters.length).toBe(3);
   });
 
-  it('mock getData', async () => {
-    // 查询按钮
-    const queryBtn = wrapper.find(
-      '.filterOutBox .el-button.el-button--primary'
-    );
-    expect(queryBtn.exists()).toBeTruthy();
-    await queryBtn.trigger('click');
-    expect(api.login.userList).toBeCalled();
-    // 重置按钮
-    const resetBtn = wrapper.find(
-      '.filterOutBox .el-button.el-button--default'
-    );
-    await resetBtn.trigger('click');
-    expect(api.login.userList).toBeCalled();
-  });
-
-  it('mock getData', async () => {
+  it('trigger expand and collapse', async () => {
     const expandLink = wrapper.find('.filterOutBox .el-link.el-link--primary');
     expect(expandLink.text()).toBe('Expand');
     await expandLink.trigger('click');

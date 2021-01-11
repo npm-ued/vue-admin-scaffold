@@ -11,6 +11,10 @@ html, body, #app {
   /* overflow: unset; */
   /* overflow-y: scroll; */
 }
+.el-menu-item-group__title {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .el-menu {
   border-right: none;
 }

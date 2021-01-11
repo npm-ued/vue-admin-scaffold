@@ -1,9 +1,15 @@
+// initial satate
+const state = {};
+// getters
+const getters = {};
+// actios
+const actions = {};
+// mutations
+const mutations = {};
 export default {
   namespaced: true,
-  state: {
-    username: '嘿嘿'
-  },
-  mutations: {},
-  actions: {},
-  getters: {}
+  state,
+  getters,
+  actions,
+  mutations
 };
