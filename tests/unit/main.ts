@@ -1,5 +1,5 @@
 import i18n from '@/i18n';
-import { store } from '@/store';
+import { store, key } from '@/store';
 import router from '@/router';
 // import mockAxios from './mock/axios';
 import globalComponents from '@/components';
@@ -9,6 +9,8 @@ import { mount } from '@vue/test-utils';
 import api from '@/api';
 // mock api
 jest.mock('@/api');
+// mock router
+// jest.mock('@/router');
 
 interface InitParams {
   props?: any;
@@ -26,8 +28,8 @@ export function initPageWithGlobal(component: any, params: InitParams = {}) {
       plugins: [
         i18n,
         // 目前TypeError: removeHistoryListener is not a function
-        // router,
-        store,
+        router,
+        [store, key],
         globalComponents,
         [ElementPlus, { locale: zhcn }]
       ],

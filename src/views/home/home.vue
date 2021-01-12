@@ -50,10 +50,6 @@ export default defineComponent({
     const welcome = t('Common.Welcome'); // 获取welcome的国际化值
     const { isShowBg } = isHomePage();
     const { cacheList } = getCacheList();
-    const router = useRouter();
-    const turnPage = (name: string) => {
-      router.push({ name });
-    };
     const handleCollapsedChange = (state: boolean) => {
       collapsed.value = state;
     };
@@ -61,7 +57,6 @@ export default defineComponent({
       welcome,
       cacheList,
       isShowBg,
-      turnPage,
       collapsed,
       handleCollapsedChange
     };
@@ -69,6 +64,7 @@ export default defineComponent({
   components: {
     AsideMenu,
     HeaderBar,
+    // $t()
     TagsNav
   }
 });

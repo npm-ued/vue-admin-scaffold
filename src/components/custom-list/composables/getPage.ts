@@ -10,7 +10,6 @@ function getPage(loadData: Function, filterModel: FilterModel) {
    * @param pageNum 当前页码
    */
   const changePage = (pageNum: number) => {
-    console.log(`当前页：${pageNum} `);
     currentPage.value = pageNum;
     const size = pageSize.value;
     const dataConfig = Object.assign({ pageSize: size, pageNum }, filterModel);
@@ -21,7 +20,6 @@ function getPage(loadData: Function, filterModel: FilterModel) {
    * @param sizes 每页条数
    */
   const changeSize = (sizes: number) => {
-    console.log(`每页：${sizes} 条`);
     pageSize.value = sizes;
     const pageNum = currentPage.value;
     const dataConfig = Object.assign({ pageSize: sizes, pageNum }, filterModel);

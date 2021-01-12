@@ -1,8 +1,8 @@
 import { AxiosInstance, Method } from 'axios';
 import server from './server';
-import { ref, onMounted } from 'vue';
-import { Vue } from 'vue-class-component';
-
+import { ElMessage } from 'element-plus';
+import i18n from '@/i18n';
+const $tc = i18n.global.tc;
 interface ServerConfig {
   type: Method;
   data: any;
@@ -104,6 +104,11 @@ class MyServer {
     // 失败回调
     const errorFn = configs.error || defaultFn;
     const errorback = function (error: any): void {
+      ElMessage({
+        message: `${$tc('Common.NetworkFail')}`,
+        type: 'error',
+        duration: 10000
+      });
       errorFn(error, defaultFn);
     };
     // 策略模式

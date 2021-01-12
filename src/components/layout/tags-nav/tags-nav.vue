@@ -15,7 +15,7 @@
             @click="handleClick(item)"
           >
             <i class="navTagDot"></i>
-            {{ $t(item.title || '') }}
+            {{ item.title ? $t(item.title || '') : '' }}
           </el-tag>
         </label>
       </div>
@@ -42,7 +42,6 @@ export default defineComponent({
     const current = ref(''); // 当前路由name
     const tagWrap = ref<any>(null);
     const targetRef = ref<any>(null);
-
     const setRef = (el: any) => {
       targetRef.value = el;
       nextTick(() => {

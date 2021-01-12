@@ -3,10 +3,10 @@ import { key } from '@/store';
 import { useStore } from 'vuex';
 
 function getCacheList() {
-  const $store = useStore(key);
+  const store = useStore(key);
   // 获取tag-navs
   const tagNavList = computed(() => {
-    return $store.state.app.tagNavList;
+    return store.state.app.tagNavList;
   });
   const list = tagNavList.value.length
     ? tagNavList.value

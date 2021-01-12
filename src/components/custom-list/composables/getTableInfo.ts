@@ -27,10 +27,10 @@ function getTableData(emit: any) {
       data: dataConfig, // 请求参数
       // 完成回调
       complete(res: any, type = 'success') {
-        const { data } = res;
-        const { list, total } = data.data;
         tableLoading.value = false;
         if (type == 'success') {
+          const { data } = res;
+          const { list, total } = data?.data;
           dataArr.value = list;
           totalCount.value = total;
         }
