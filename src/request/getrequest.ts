@@ -1,15 +1,17 @@
-import { AxiosInstance, Method } from 'axios';
+import axios, { AxiosInstance, Method } from 'axios';
 import server from './server';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElLoading } from 'element-plus';
 import i18n from '@/i18n';
+import { ILoadingInstance } from 'element-plus/lib/el-loading/src/loading.type';
 const $tc = i18n.global.tc;
 interface ServerConfig {
   type: Method;
   data: any;
-  isAsync: boolean;
+  isAsync?: boolean;
   success: any;
   error: any;
   bindName: string;
+  isLoading?: boolean;
 }
 interface State {
   [key: string]: any;
@@ -72,13 +74,30 @@ class MyServer {
     const bindName = configs.bindName || name;
     // 是否异步
     const isAsync = configs.isAsync || true;
+    // 是否全局loading
+    const isLoading = config.isLoading || false;
     // 保存当前this
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self: MyServer = this;
+    let loadingInstance: ILoadingInstance;
+    // 发送前
+    const beforeSend = function () {
+      if (isLoading) {
+        loadingInstance = ElLoading.service({
+          lock: true,
+          text: 'Loading'
+        });
+      }
+      return Promise.resolve();
+    };
 
     // axios有请求拦截
     // 处理数据，绑定前处理和绑定处理
-    const before = function <T>(msg: T): T {
+    const before = function <T>(msg: T) {
+      // 去除loading
+      if (isLoading) {
+        loadingInstance.close();
+      }
       return msg;
     };
 
@@ -97,33 +116,51 @@ class MyServer {
 
     // 成功回调
     const success = configs.success || defaultFn;
-    const callback = function (res: any): void {
-      success(res, defaultFn);
+    const callback = function (res: any) {
+      return new Promise((resolve, reject) => {
+        success(res, defaultFn);
+        resolve(res);
+      });
     };
 
     // 失败回调
     const errorFn = configs.error || defaultFn;
-    const errorback = function (error: any): void {
-      ElMessage({
-        message: `${$tc('Common.NetworkFail')}`,
-        type: 'error',
-        duration: 10000
+    const errorback = function (error: any) {
+      return new Promise((resolve, reject) => {
+        ElMessage({
+          message: `${$tc('Common.NetworkFail')}`,
+          type: 'error',
+          duration: 10000
+        });
+        errorFn(error, defaultFn);
+        reject(error);
       });
-      errorFn(error, defaultFn);
     };
     // 策略模式
     const state: State = {
-      // get 方法
+      // get 方法,这里注意then的链条
       get: function () {
         const getResult = self.server.get(ajax.url, { params: data });
-        getResult.then(before).then(callback).catch(errorback);
-        return getResult;
+        return Promise.resolve()
+          .then(beforeSend)
+          .then(() => {
+            return getResult;
+          })
+          .then(before)
+          .then(callback)
+          .catch(errorback);
       },
       // post 方法
       post: function () {
         const postResult = self.server.post(ajax.url, data);
-        postResult.then(before).then(callback).catch(errorback);
-        return postResult;
+        return Promise.resolve()
+          .then(beforeSend)
+          .then(() => {
+            return postResult;
+          })
+          .then(before)
+          .then(callback)
+          .catch(errorback);
       }
     };
     // 如果是异步
