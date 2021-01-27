@@ -35,3 +35,13 @@ interface ButtonItem {
 export interface FilterModel {
   [propName: string]: string | undefined;
 }
+
+export interface TableColumn {
+  title: string;
+  key: string;
+  formatter?: Function;
+  render?: Function;
+  minWidth?: number;
+  align?: string;
+  sortable?: boolean;
+}

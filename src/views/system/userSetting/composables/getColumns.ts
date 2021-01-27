@@ -1,10 +1,5 @@
-export interface TableColumn {
-  title: string;
-  key: string;
-  width?: number;
-  align?: string;
-  sortable?: boolean;
-}
+import { TableColumn } from "@/components/custom-list/custom-list";
+
 function getColumns(): Array<TableColumn> {
   // 列
   const columns: TableColumn[] = [
@@ -27,7 +22,7 @@ function getColumns(): Array<TableColumn> {
     {
       title: '身份证号',
       key: 'idCardNo',
-      width: 230
+      minWidth: 230
     },
     {
       title: '手机号',
