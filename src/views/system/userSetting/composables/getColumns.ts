@@ -1,5 +1,3 @@
-import { TableColumn } from "@/components/custom-list/custom-list";
-
 function getColumns(): Array<TableColumn> {
   // 列
   const columns: TableColumn[] = [

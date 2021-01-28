@@ -6,6 +6,7 @@
       :resetForm="resetForm"
       :query="query"
     />
+    <slot name="listOperate"></slot>
     <el-table
       :data="dataArr"
       stripe
@@ -18,22 +19,8 @@
         <el-table-column
           :prop="item.key"
           :label="item.title"
-          :min-width="item.minWidth ? item.minWidth : null"
-          :formatter="item.formatter"
-        >
-          <template #default="scope">
-            <table-expand
-              v-if="item.render"
-              :render="item.render"
-              :row="scope.row"
-              :index="index"
-              :column="item"
-            />
-            <span v-else>
-              {{ scope.row[item.key] }}
-            </span>
-          </template>
-        </el-table-column>
+          :width="item.width"
+        />
       </template>
     </el-table>
     <div class="pageWrap">
@@ -58,13 +45,11 @@ import initFields from './composables/initFields';
 import initFilterModel from './composables/initFilterModel';
 import { FormItem, FilterModel } from './custom-list';
 import { mount } from '@vue/test-utils';
-import TableExpand from './table-expand.vue';
 
 export default defineComponent({
   name: 'customList',
   components: {
-    ListFilter,
-    TableExpand
+    ListFilter
   },
   data() {
     return {

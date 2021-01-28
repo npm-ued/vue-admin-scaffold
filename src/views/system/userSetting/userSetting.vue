@@ -1,5 +1,11 @@
 <template>
-  <custom-list :columns="columns" :filterItems="formItemArr" @query="query" />
+  <custom-list :columns="columns" :filterItems="formItemArr" @query="query">
+    <template v-slot:listOperate>
+      <div class="pt10 pb10">
+        <el-button type="primary" icon="el-icon-plus">Add</el-button>
+      </div>
+    </template>
+  </custom-list>
 </template>
 <script lang="ts">
 import customList from '@/components/custom-list/custom-list.vue';

@@ -16,7 +16,7 @@
             v-model.trim="loginUserName"
             class="loginControl"
             autocomplete="off"
-            :placeholder="$t('Common.PleaseEnter')"
+            :placeholder="$t('Common.PleaseEnter') + $t('Login.LoginUserName')"
           />
         </div>
         <div class="loginGroup">
@@ -27,19 +27,8 @@
             v-model.trim="code"
             class="loginControl"
             autocomplete="off"
-            :placeholder="$t('Common.PleaseEnter')"
+            :placeholder="$t('Common.PleaseEnter') + $t('Login.Pwd')"
           />
-          <el-button
-            type="primary"
-            v-if="codeStatus"
-            class="codeBtn"
-            @click="sendCode"
-          >
-            {{ $t('Login.GetCode') }}
-          </el-button>
-          <el-button type="default" v-else class="codeBtnDisable" disabled>
-            {{ codeText }}{{ $t('Login.Resend') }}
-          </el-button>
         </div>
         <div class="langWrap">
           <a @click="changeLanguage" class="langLink">
@@ -63,10 +52,14 @@ export default defineComponent({
   name: 'login',
   setup() {
     const router = useRouter();
+    const data1 = ref([
+      { name: 'lisi', age: 23, slot: 'name1' },
+      { name: 'zhangsan', age: 11, slot: 'name2' }
+    ]);
     const login = function () {
       router.push({ path: '/' });
     };
-    return { changeLanguage, login };
+    return { changeLanguage, login, data1 };
   }
 });
 </script>
