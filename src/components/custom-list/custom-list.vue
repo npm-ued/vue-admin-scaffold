@@ -19,8 +19,18 @@
         <el-table-column
           :prop="item.key"
           :label="item.title"
-          :width="item.width"
-        />
+          :min-width="item.minWidth ? item.minWidth : null"
+          :formatter="item.formatter"
+        >
+          <template #default="scope" v-if="item.render">
+            <table-expand
+              :render="item.render"
+              :row="scope.row"
+              :index="index"
+              :column="item"
+            />
+          </template>
+        </el-table-column>
       </template>
     </el-table>
     <div class="pageWrap">
@@ -44,12 +54,13 @@ import getPage from './composables/getPage';
 import initFields from './composables/initFields';
 import initFilterModel from './composables/initFilterModel';
 import { FormItem, FilterModel } from './custom-list';
-import { mount } from '@vue/test-utils';
+import TableExpand from './table-expand.vue';
 
 export default defineComponent({
   name: 'customList',
   components: {
-    ListFilter
+    ListFilter,
+    TableExpand
   },
   data() {
     return {

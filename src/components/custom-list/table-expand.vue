@@ -1,6 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, ref } from 'vue';
-import { ElButton } from 'element-plus';
+import { defineComponent, h } from 'vue';
 export default defineComponent({
   name: 'tableExpand',
   props: {
@@ -30,8 +29,7 @@ export default defineComponent({
         return '';
       };
     }
-    // return renderFn(h, row);
-    return h(ElButton, {});
+    return renderFn(h, row);
   }
 });
 </script>
